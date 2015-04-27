@@ -8,10 +8,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-/**
- * Created by Geri on 2015.02.24..
- */
-
 public class GameFrame extends JComponent {
 
     Dimension robotSize = null;
