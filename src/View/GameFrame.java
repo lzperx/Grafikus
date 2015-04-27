@@ -44,7 +44,7 @@ public class GameFrame extends JComponent {
         return testRobot;
     }
 
-    // getterek
+    // getterek de
     public Point getRobotLocation(){
         return robot;
     }
