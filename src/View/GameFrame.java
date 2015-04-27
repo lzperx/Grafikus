@@ -36,10 +36,10 @@ public class GameFrame extends JComponent {
     private BufferedImage loadRobot(String name){
 
         try{
-            testRobot = ImageIO.read(new File(System.getProperty("user.dir") + File.separator + "robot" + File.separator + name + ".png"));
+            testRobot = ImageIO.read(new File(System.getProperty("user.dir") + File.separator + "pic" + File.separator + name + ".png"));
         }catch (Exception e){
             System.out.println("File not found");
-            System.out.println(System.getProperty("user.dir") + File.separator + "robot" + File.separator);
+            System.out.println(System.getProperty("user.dir") + File.separator + "pic" + File.separator);
         }
         return testRobot;
     }
