@@ -8,7 +8,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class GameFrame extends JComponent {
+public class GameElementComponent extends JComponent {
 
     Dimension robotSize = null;
     Point robot = null;
@@ -18,7 +18,7 @@ public class GameFrame extends JComponent {
     /*Beállítja a GameFrame-t,
       hogy a kívánt nevű robottal lehessen játszani.
      */
-    public GameFrame(Point robot1Location, String name){
+    public GameElementComponent(Point robot1Location, String name){
         robot = robot1Location;
         testRobot = loadRobot(name);
         robotSize = new Dimension(testRobot.getWidth(),testRobot.getHeight());

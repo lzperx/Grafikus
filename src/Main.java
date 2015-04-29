@@ -41,7 +41,7 @@ public class Main {
         Point test = new Point(200,300);
         JFrame gameFrame = new JFrame("Phoebe");
 
-        GameFrame frame = new GameFrame(test, "testrobot");
+        GameElementComponent frame = new GameElementComponent(test, "testrobot");
         gameFrame.setSize(1024, 768);
         frame.setRotation(Math.toRadians(80));
 
