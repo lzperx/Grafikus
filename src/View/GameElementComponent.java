@@ -10,8 +10,7 @@ import java.io.File;
 
 public class GameElementComponent extends JComponent {
 
-    Dimension robotSize = null;
-    Point robot = null;
+    Point componentLocation = null;
     double rotation = 0;
     BufferedImage testRobot = null;
 
@@ -19,9 +18,8 @@ public class GameElementComponent extends JComponent {
       hogy a kívánt nevű robottal lehessen játszani.
      */
     public GameElementComponent(Point robot1Location, String name){
-        robot = robot1Location;
+        componentLocation = robot1Location;
         testRobot = loadRobot(name);
-        robotSize = new Dimension(testRobot.getWidth(),testRobot.getHeight());
     }
 
     /* Betölti a robot képét a program futási mappájában lévő robot mappából.
@@ -40,28 +38,20 @@ public class GameElementComponent extends JComponent {
         return testRobot;
     }
 
-    // getterek de
-    public Point getRobotLocation(){
-        return robot;
-    }
-
-    public Dimension getRobotSize(){
-        return robotSize;
-    }
-
+    
     // setterek
     public void setRotation(double angle){
         rotation = angle;
     }
 
     public void  setRobotLocation(Point newLocation){
-        robot = newLocation;
+        componentLocation = newLocation;
     }
 
     // a megfelelő irányba fordított robot kirajzolása
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-        g2d.rotate(rotation,robot.getX() + (testRobot.getWidth()/  2), robot.getY() + (testRobot.getHeight() / 2));
-        g2d.drawImage(testRobot,(int)robot.getX(),(int)robot.getY(),null);
+        g2d.rotate(rotation,componentLocation.getX() + (testRobot.getWidth()/  2), componentLocation.getY() + (testRobot.getHeight() / 2));
+        g2d.drawImage(testRobot,(int)componentLocation.getX(),(int)componentLocation.getY(),null);
     }
 }
