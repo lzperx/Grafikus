@@ -16,9 +16,7 @@ public class GameControl {
 
     public GameControl(GameMapContainer gameMapContainer) {
         this.gameMapContainer = gameMapContainer;
-    }
 
-    public void CreateManager() {
         /*
         //todo itt kell inicializálni a kezdő pályaelemeket
         //2 robot van mindig, a többi elem opcionális, a játék folyamán változnak
@@ -34,6 +32,7 @@ public class GameControl {
 
 
     private int RobotSorszam = 1;
+    //Ez a fő metódusunk: körök kezelése (kisrobot, nagyrobot, folt szárítás)
     public void RoundManager(String[] sor) {
 
         //A RobotSorszammal tartjuk számon, hogy melyik az aktuális robotunk (0,1) a 2 robot közül
@@ -71,7 +70,7 @@ public class GameControl {
     }
 
 
-    //irányítja 1 kör erejéig a nagyrobotot
+    //Az aktuális robotot koordinátáit változtatja, és ütközést detektál/kezel
     public void ControlPlayerRobot(PlayerRobot robot) {
         robot.Jump();
         boolean isAlive = Collision(robot);
@@ -110,7 +109,7 @@ public class GameControl {
 
     }
 
-
+    //A nagyrobot ütközéseit kezeljük itt le
     private boolean Collision(PlayerRobot C3PO) {
 
         //Csapdákkal való ütközés lekezelése
@@ -161,7 +160,7 @@ public class GameControl {
         return true;
     }
 
-
+    //A kisrobot ütközéseit kezeljük itt le
     private boolean Collision(CleanerRobot C3PO) {
 
         //Csapdákkal való ütközés lekezelése
@@ -227,7 +226,7 @@ public class GameControl {
         return false;
     }
 
-
+    //visszatér az átadott robot új szögével
     private double setAngleofCleanerRobot(CleanerRobot robot) {
 
         double angle = 0;
