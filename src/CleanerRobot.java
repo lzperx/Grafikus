@@ -1,7 +1,6 @@
 import java.awt.*;
 
 public class CleanerRobot extends GameElements {
-    Shell shell;
     public int name; //CSAK INEIGLENESEN a protoban
 
     protected Point nextPosition;   //A robot ahova ugrani fog legközelebb

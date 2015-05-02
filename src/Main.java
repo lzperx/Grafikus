@@ -6,11 +6,6 @@ import javax.swing.*;
 
 public class Main {
 
-    static Shell shell = new Shell();
-
-    private enum ProcessingEnum {
-        create, startgame, exitgame
-    }
 
     public static void main(String args[]) throws IOException {
 
@@ -48,7 +43,7 @@ public class Main {
         gameFrame.add(frame);
         frame.repaint();
         gameFrame.setVisible(true);
-        System.out.println(frame.getRobotLocation());
+        //System.out.println(frame.getRobotLocation());
         gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //Idáig
 

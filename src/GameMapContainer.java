@@ -11,7 +11,6 @@ import java.util.Map;
  */
 
 public class GameMapContainer {
-    Shell shell;
 
     // Pálya felbontása
     private Dimension resolution;

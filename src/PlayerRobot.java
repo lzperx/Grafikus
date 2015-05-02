@@ -1,7 +1,6 @@
 import java.awt.*;
 
 public class PlayerRobot extends GameElements {
-    Shell shell;
 
     public int name; //CSAK INEIGLENESEN a protoban
 

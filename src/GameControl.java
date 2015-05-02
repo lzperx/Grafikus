@@ -5,7 +5,6 @@ import java.lang.Math;
 /*A teljes játékirányításért felelős objektum.*/
 
 public class GameControl {
-    Shell shell;
 
     /*   Referencia a játékelemeket tároló objektumra,
      *   így tudjuk hogy milyen robotok vannak, és mi hol van a pályán.
@@ -19,13 +18,66 @@ public class GameControl {
         this.gameMapContainer = gameMapContainer;
     }
 
+    public void CreateManager() {
+        /*
+        //todo itt kell inicializálni a kezdő pályaelemeket
+        //2 robot van mindig, a többi elem opcionális, a játék folyamán változnak
+
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(, , 10, )));
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(, , 10, )));
+        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(, , 10)));
+
+        gameMapContainer.addTrap(new Glue(new Point(, )));
+        gameMapContainer.addTrap(new Oil(new Point(, )));
+        */
+    }
+
+
+    private int RobotSorszam = 1;
+    public void RoundManager(String[] sor) {
+
+        //A RobotSorszammal tartjuk számon, hogy melyik az aktuális robotunk (0,1) a 2 robot közül
+        if(RobotSorszam==1){
+            RobotSorszam=0;
+            //ha kör eleje van, akkor lefuttatjuk a kisrobotokat
+            ControlCleanerRobots();
+        }else RobotSorszam=1;
+
+        //a sorszám alapján beállítjuk az aktuális robotunkat
+        PlayerRobot actualRobot = gameMapContainer.getPlayerRobots().get(RobotSorszam);
+
+
+        //todo itt kell kezelni a gombokat az allábbiak szerint
+            /*
+                actualRobot.Speed();
+
+                actualRobot.TurnRight();
+
+                actualRobot.TurnLeft();
+
+                if (actualRobot.PutOil())
+                    gameMapContainer.addTrap(new Oil(actualRobot.getLocation()));
+
+                if (actualRobot.PutGlue())
+                    gameMapContainer.addTrap(new Glue(actualRobot.getLocation()));
+               */
+
+        //lekezeltük a gombokat, ezután futtatjuk az aktuális robotra a változásokat/ütközést detektálunk
+        ControlPlayerRobot(actualRobot);
+
+        //ha a kör vége van, akkor lekezeljük külön csapdákat (szárítás: törlés, ha kiszáradt)
+        if (RobotSorszam == 1) removeOldTraps();
+
+    }
+
+
     //irányítja 1 kör erejéig a nagyrobotot
     public void ControlPlayerRobot(PlayerRobot robot) {
         robot.Jump();
         boolean isAlive = Collision(robot);
 
         if (isAlive) {
-           System.out.println( "    Robot" + robot.name+
+            System.out.println("    Robot" + robot.name +
                     " [ X = " + robot.getLocation().getX() + " , Y = " + robot.getLocation().getY() +
                     ", Angle = " + robot.angle + ", " + "Speed = " + robot.speed + "]");
         }
@@ -48,7 +100,7 @@ public class GameControl {
 
             //vizsgáljuk, hogy él még-e, majd kiírjuk, ha igen
             if (isAlive) {
-               System.out.println( "    KisRobot" + robot.name+
+                System.out.println("    KisRobot" + robot.name +
                         " [ X = " + robot.getLocation().getX() + " , Y = " + robot.getLocation().getY() +
                         ", Angle = " + robot.angle +
                         ", Speed = " + robot.speed + ", " + "Takarit = " + robot.isCleaning +
@@ -57,7 +109,6 @@ public class GameControl {
         }
 
     }
-
 
 
     private boolean Collision(PlayerRobot C3PO) {
@@ -91,15 +142,14 @@ public class GameControl {
 
                     //ezt a törlést nem tehettük meg az accept metódusban, hisz a két robot nem láthatja egymást,
                     //de a GameControl látja őket, itt történik a törlés hívás ténylegesen
-                    if (C3PO.speed > R2D2.speed){
+                    if (C3PO.speed > R2D2.speed) {
                         gameMapContainer.removePlayerRobot(R2D2);
 
                         //ha tehát R2D2 halt meg, akkor visszatérünk rögtön, mert különben
                         //exception-t dob, hisz a for ciklusunk 2-ig számolt, de mi töröltük az 1.-t az 1. körben,
                         //így a 2. robot (ami most már így az 1. a listában) nem lesz található
                         return true;
-                    }
-                    else {
+                    } else {
                         gameMapContainer.removePlayerRobot(C3PO);
                         return false;
                     }
@@ -117,14 +167,14 @@ public class GameControl {
         //Csapdákkal való ütközés lekezelése
 
         for (Trap trap : gameMapContainer.getTraps()) {
-            if ( trap.getLocation() == GetMinDistanceTrapLocation(C3PO) ) {
+            if (trap.getLocation() == GetMinDistanceTrapLocation(C3PO)) {
                 Trap closest = trap;
-                if ( C3PO.getLocation().distance(closest.getLocation()) < (closest.getHitbox())) {
+                if (C3PO.getLocation().distance(closest.getLocation()) < (closest.getHitbox())) {
                     C3PO.location = closest.getLocation();
 
                     //ha már nem takarít, akkor kilépünk ebből a for ciklusból,
                     //mert különben Exception-t kapunk, mert a gameMapContainer.getTraps().size() változott
-                    if(!CleaningTrap(C3PO)) break;
+                    if (!CleaningTrap(C3PO)) break;
                 }
             }
         }
@@ -150,23 +200,22 @@ public class GameControl {
     /*Új cleaning by Jánoky*/
     //Takarít a paraméterben kapott robot
     //megkeresi az a foltot, amin áll és takarít vagy befejezi a takarítást=törli a foltot
-    private boolean CleaningTrap (CleanerRobot cleaner){
+    private boolean CleaningTrap(CleanerRobot cleaner) {
         Trap cleanupThis = null;
 
-        for (Trap trap : gameMapContainer.getTraps()){
-            if (trap.getLocation() == GetMinDistanceTrapLocation(cleaner)){
+        for (Trap trap : gameMapContainer.getTraps()) {
+            if (trap.getLocation() == GetMinDistanceTrapLocation(cleaner)) {
                 cleanupThis = trap;
             }
         }
 
-        if ( cleanupThis != null){
-            if ( cleaner.cleaningcount == cleaner.TimeOfCleaning){
+        if (cleanupThis != null) {
+            if (cleaner.cleaningcount == cleaner.TimeOfCleaning) {
                 gameMapContainer.removeTrap(cleanupThis);
                 cleaner.cleaningcount = 0;
                 cleaner.isCleaning = false;
                 return false;
-            }
-            else{
+            } else {
                 cleaner.isCleaning = true;
                 cleanupThis.accept(cleaner);
                 return true;
@@ -179,30 +228,28 @@ public class GameControl {
     }
 
 
-
     private double setAngleofCleanerRobot(CleanerRobot robot) {
 
         double angle = 0;
         Point trapLocation = GetMinDistanceTrapLocation(robot);
 
         if (trapLocation.getX() < 0) {
-           System.out.println( "Nincsen csapda a palyan.");
+            System.out.println("Nincsen csapda a palyan.");
             //ekkor baktatunk a sajat szögünkkel tovább
             return robot.angle;
-        }
-        else {
+        } else {
             double x = robot.getLocation().getX() - trapLocation.getX();
             double y = robot.getLocation().getY() - trapLocation.getY();
             double atmero = robot.getLocation().distance(trapLocation);
 
             if (x > 0 && y >= 0)
-                angle = 180+Math.toDegrees(Math.asin(y / atmero));//jó
+                angle = 180 + Math.toDegrees(Math.asin(y / atmero));//jó
             if (x >= 0 && y < 0)
-                angle = 180+Math.toDegrees(Math.asin(y / atmero));//jó
+                angle = 180 + Math.toDegrees(Math.asin(y / atmero));//jó
             if (x <= 0 && y > 0)
                 angle = 360 - Math.toDegrees(Math.asin(y / atmero));//jó
             if (x < 0 && y <= 0)
-                angle =  (-1)*Math.toDegrees(Math.asin(y / atmero));//jó
+                angle = (-1) * Math.toDegrees(Math.asin(y / atmero));//jó
 
             return Math.round(angle);
         }
@@ -227,11 +274,11 @@ public class GameControl {
     //minden kör végén kell meghívni
     public void removeOldTraps() {
         for (Trap csapda : gameMapContainer.getTraps()) {
-                csapda.dry();
-                if (csapda.getTimeToLive() <= 0) {
-                    gameMapContainer.removeTrap(csapda);
-                    break;
-                }
+            csapda.dry();
+            if (csapda.getTimeToLive() <= 0) {
+                gameMapContainer.removeTrap(csapda);
+                break;
+            }
         }
     }
 }
