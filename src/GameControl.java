@@ -31,41 +31,31 @@ public class GameControl {
     }
 
 
-    private int RobotSorszam = 1;
-    //Ez a fő metódusunk: körök kezelése (kisrobot, nagyrobot, folt szárítás)
-    public void RoundManager(String[] sor) {
+    //Ez a fő metódusunk: körök kezelése (kisrobotok, nagyrobotok, foltok szárítása)
+    public void RoundManager() {
 
-        //A RobotSorszammal tartjuk számon, hogy melyik az aktuális robotunk (0,1) a 2 robot közül
-        if(RobotSorszam==1){
-            RobotSorszam=0;
-            //ha kör eleje van, akkor lefuttatjuk a kisrobotokat
-            ControlCleanerRobots();
-        }else RobotSorszam=1;
+        //ha kör eleje van, akkor lefuttatjuk a kisrobotokat
+        ControlCleanerRobots();
 
-        //a sorszám alapján beállítjuk az aktuális robotunkat
-        PlayerRobot actualRobot = gameMapContainer.getPlayerRobots().get(RobotSorszam);
+        for (PlayerRobot actualRobot : gameMapContainer.getPlayerRobots()) {
 
-
-        //todo itt kell kezelni a gombokat az allábbiak szerint
+            //todo itt kell kezelni a gombokat az allábbiak szerint
             /*
                 actualRobot.Speed();
-
                 actualRobot.TurnRight();
-
                 actualRobot.TurnLeft();
-
                 if (actualRobot.PutOil())
                     gameMapContainer.addTrap(new Oil(actualRobot.getLocation()));
-
                 if (actualRobot.PutGlue())
                     gameMapContainer.addTrap(new Glue(actualRobot.getLocation()));
                */
 
-        //lekezeltük a gombokat, ezután futtatjuk az aktuális robotra a változásokat/ütközést detektálunk
-        ControlPlayerRobot(actualRobot);
+            //lekezeltük a gombokat, ezután futtatjuk az aktuális robotra a változásokat/ütközést detektálunk
+            ControlPlayerRobot(actualRobot);
+        }
 
         //ha a kör vége van, akkor lekezeljük külön csapdákat (szárítás: törlés, ha kiszáradt)
-        if (RobotSorszam == 1) removeOldTraps();
+        removeOldTraps();
 
     }
 
