@@ -30,12 +30,18 @@ public class GameControl {
     //Ez a fő metódusunk: körök kezelése (kisrobotok, nagyrobotok, foltok szárítása)
     public void RoundManager() {
 
-        //ha kör eleje van, akkor lefuttatjuk a kisrobotokat
-        ControlCleanerRobots();
+        //minden kör elején lefuttatjuk a kisrobotokat
+        for (CleanerRobot cleanerRobot : gameMapContainer.getCleanerRobots()) {
+            //beállítjuk a legközelebbi folt felé
+            cleanerRobot.angle = setAngleofCleanerRobot(cleanerRobot);
+            //mozgatjuk a robotot, ha épp takarít, akkor a takarítási idő csökken
+            cleanerRobot.Jump();
+            //üztökést detektálunk: frissülnek az adatok
+            Collision(cleanerRobot);
+        }
 
         //lekezeljük a pálya robotjait sorban
         for (PlayerRobot actualRobot : gameMapContainer.getPlayerRobots()) {
-
             //todo itt kell kezelni a gombokat az allábbiak szerint
             /*
                 actualRobot.Speed();
@@ -47,57 +53,20 @@ public class GameControl {
                     gameMapContainer.addTrap(new Glue(actualRobot.getLocation()));
                */
 
-            //lekezeltük a gombokat, ezután futtatjuk az aktuális robotra a változásokat/ütközést detektálunk
-            ControlPlayerRobot(actualRobot);
+            //a gombok után futtatjuk az aktuális robotra a változásokat
+            actualRobot.Jump();
+            //ütközést detektálunk
+            Collision(actualRobot);
         }
 
-        //ha a kör vége van, akkor lekezeljük külön csapdákat (szárítás: törlés, ha kiszáradt)
+        //a kör végén lekezeljük külön a csapdákat (szárítás: törlés, ha kiszáradt)
         removeOldTraps();
 
     }
 
 
-    //Az aktuális robotot koordinátáit változtatja, és ütközést detektál/kezel
-    public void ControlPlayerRobot(PlayerRobot robot) {
-        robot.Jump();
-        boolean isAlive = Collision(robot);
-
-        if (isAlive) {
-            System.out.println("    Robot" + robot.name +
-                    " [ X = " + robot.getLocation().getX() + " , Y = " + robot.getLocation().getY() +
-                    ", Angle = " + robot.angle + ", " + "Speed = " + robot.speed + "]");
-        }
-
-    }
-
-    //Minden kör elején lekezeli az összes kisrobotot
-    public void ControlCleanerRobots() {
-
-        for (CleanerRobot robot : gameMapContainer.getCleanerRobots()) {
-
-
-            //beállítjuk a legközelebbi folt felé
-            robot.angle = setAngleofCleanerRobot(robot);
-
-            //mozgatjuk a robotot, ha épp takarít, akkor a takarítási idő csökken
-            robot.Jump();
-            //üztökést detektálunk: frissülnek az adatok
-            Boolean isAlive = Collision(robot);
-
-            //vizsgáljuk, hogy él még-e, majd kiírjuk, ha igen
-            if (isAlive) {
-                System.out.println("    KisRobot" + robot.name +
-                        " [ X = " + robot.getLocation().getX() + " , Y = " + robot.getLocation().getY() +
-                        ", Angle = " + robot.angle +
-                        ", Speed = " + robot.speed + ", " + "Takarit = " + robot.isCleaning +
-                        ", Takaritasi ido = " + robot.TimeOfCleaning + ", Aktualis takaritas = " + robot.cleaningcount + "]");
-            }
-        }
-
-    }
-
     //A nagyrobot ütközéseit kezeljük itt le
-    private boolean Collision(PlayerRobot C3PO) {
+    private void Collision(PlayerRobot C3PO) {
 
         //Csapdákkal való ütközés lekezelése
         for (Trap itsATrap : gameMapContainer.getTraps()) {
@@ -134,21 +103,20 @@ public class GameControl {
                         //ha tehát R2D2 halt meg, akkor visszatérünk rögtön, mert különben
                         //exception-t dob, hisz a for ciklusunk 2-ig számolt, de mi töröltük az 1.-t az 1. körben,
                         //így a 2. robot (ami most már így az 1. a listában) nem lesz található
-                        return true;
+                        break;
                     } else {
                         gameMapContainer.removePlayerRobot(C3PO);
-                        return false;
+                        break;
                     }
 
                 }
             }
         }
 
-        return true;
     }
 
     //A kisrobot ütközéseit kezeljük itt le
-    private boolean Collision(CleanerRobot C3PO) {
+    private void Collision(CleanerRobot C3PO) {
 
         //Csapdákkal való ütközés lekezelése
 
@@ -179,7 +147,6 @@ public class GameControl {
 
         }
 
-        return true;
     }
 
 
