@@ -10,18 +10,14 @@ public class GameControl {
      *   így tudjuk hogy milyen robotok vannak, és mi hol van a pályán.
      *   Ezt a konstruktorban kell átadni.
     */
-
     private GameMapContainer gameMapContainer;
 
-
+    //A konstruktorban inicializálunk mindent, létrehozzuk a robotokat, a kezdő elemeket
     public GameControl(GameMapContainer gameMapContainer) {
         this.gameMapContainer = gameMapContainer;
 
         /*
         //todo itt kell inicializálni a kezdő pályaelemeket
-        //2 robot van mindig, a többi elem opcionális, a játék folyamán változnak
-
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(, , 10, )));
         gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(, , 10, )));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(, , 10)));
 
@@ -37,6 +33,7 @@ public class GameControl {
         //ha kör eleje van, akkor lefuttatjuk a kisrobotokat
         ControlCleanerRobots();
 
+        //lekezeljük a pálya robotjait sorban
         for (PlayerRobot actualRobot : gameMapContainer.getPlayerRobots()) {
 
             //todo itt kell kezelni a gombokat az allábbiak szerint
