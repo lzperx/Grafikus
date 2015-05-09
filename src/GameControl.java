@@ -14,6 +14,11 @@ public class GameControl implements KeyListener {
     */
     private GameMapContainer gameMapContainer;
 
+    //Ezek a mi globális mértékegységeink a gyorsításnál, fordulásnál
+    //minden gomblenyomásnál ennyit fog változni a sebesség/elfordulás
+    public static final int speedChange = 5;
+    public static final int angleChange = 10;
+
     //A konstruktorban inicializálunk mindent, létrehozzuk a robotokat, a kezdő elemeket
     public GameControl(GameMapContainer gameMapContainer) {
         this.gameMapContainer = gameMapContainer;
@@ -22,7 +27,6 @@ public class GameControl implements KeyListener {
         //todo itt kell inicializálni a kezdő pályaelemeket
         gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(, , 10, )));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(, , 10)));
-
         gameMapContainer.addTrap(new Glue(new Point(, )));
         gameMapContainer.addTrap(new Oil(new Point(, )));
         */
@@ -44,18 +48,9 @@ public class GameControl implements KeyListener {
 
         //lekezeljük a pálya robotjait sorban
         for (PlayerRobot actualRobot : gameMapContainer.getPlayerRobots()) {
-            //todo itt kell kezelni a gombokat az allábbiak szerint
-            /*
-                actualRobot.Speed();
-                actualRobot.TurnRight();
-                actualRobot.TurnLeft();
-                if (actualRobot.PutOil())
-                    gameMapContainer.addTrap(new Oil(actualRobot.getLocation()));
-                if (actualRobot.PutGlue())
-                    gameMapContainer.addTrap(new Glue(actualRobot.getLocation()));
-               */
-
-            //a gombok után futtatjuk az aktuális robotra a változásokat
+            //A gombkezelést a keyListener interfészen keresztül nézzük
+            //és ott változtatjuk a játékos robotok értékeit.
+            //a gombok segítségével beállított változásokat futtatjuk az aktuális robotra: Jump()
             actualRobot.Jump();
             //ütközést detektálunk
             Collision(actualRobot);
@@ -236,67 +231,49 @@ public class GameControl implements KeyListener {
             }
         }
     }
+
+
+
+
+    //keylistener-hez tartozó megvalósítandó metódus
+    //ha lenyomták az adott gombot, akkor hajtódnak végre az adott változások
+    @Override
     public void keyPressed(KeyEvent e) {
+        for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
 
-        for (PlayerRobot R2D2: gameMapContainer.getPlayerRobots()) {
 
-            if(e.getKeyCode()== R2D2.keys.getLeftKey())
-                R2D2.keys.left=true;
-            if(e.getKeyCode() == R2D2.keys.getUpKey())
-                R2D2.keys.up=true;
-            if(e.getKeyCode() == R2D2.keys.getRightKey())
-                R2D2.keys.right=true;
-            if(e.getKeyCode() == R2D2.keys.getDownKey())
-                R2D2.keys.down=true;
-            if(e.getKeyCode() == R2D2.keys.getOilKey())
-                R2D2.keys.oil= true;
-            if(e.getKeyCode() == R2D2.keys.getGlueKey())
-                R2D2.keys.glue= true;
+            if (e.getKeyCode() == R2D2.keys.getLeftKey())
+                R2D2.TurnLeft(angleChange);
+            if (e.getKeyCode() == R2D2.keys.getUpKey())
+                R2D2.Speed(speedChange);
+            if (e.getKeyCode() == R2D2.keys.getRightKey())
+                R2D2.TurnRight(angleChange);
+            if (e.getKeyCode() == R2D2.keys.getDownKey())
+                R2D2.Speed(-speedChange);
+            if (e.getKeyCode() == R2D2.keys.getOilKey()) {
+                R2D2.PutOil();
+                gameMapContainer.addTrap(new Oil(R2D2.getLocation()));
+            }
+
+            if (e.getKeyCode() == R2D2.keys.getGlueKey()) {
+                R2D2.PutGlue();
+                gameMapContainer.addTrap(new Glue(R2D2.getLocation()));
+            }
         }
     }
 
 
-    /*  gomb felengedésének érzékelése, és
-     *  a megfelelő gomb boolean változójának false ra állítása.
-    */
+    //keylistener-hez tartozó megvalósítandó metódus
+    //nekünk most itt nem kell használnunk
     @Override
     public void keyReleased(KeyEvent e) {
-
-        for (PlayerRobot R2D2: gameMapContainer.getPlayerRobots()) {
-
-            if(e.getKeyCode()== R2D2.keys.getLeftKey())
-                R2D2.keys.left=false;
-            if(e.getKeyCode() == R2D2.keys.getUpKey())
-                R2D2.keys.up=false;
-            if(e.getKeyCode() == R2D2.keys.getRightKey())
-                R2D2.keys.right=false;
-            if(e.getKeyCode() == R2D2.keys.getDownKey())
-                R2D2.keys.down=false;
-        }
     }
 
-
-    /*  rövid gombnyomások érzékelése a megfelelő
-     *  függvények meghívásával
-    */
+    //keylistener-hez tartozó megvalósítandó metódus
+    //nekünk most itt nem kell használnunk
     @Override
     public void keyTyped(KeyEvent e) {
-
-        for (PlayerRobot R2D2: gameMapContainer.getPlayerRobots()) {
-
-            if(e.getKeyCode()== R2D2.keys.getLeftKey())
-                R2D2.TurnLeft(20);//TODO elfordulás rendes érték (ez csak hasraütésre írtam be)
-            if(e.getKeyCode() == R2D2.keys.getUpKey())
-                R2D2.Speed(20); //TODO elfordulás rendes érték (ez csak hasraütésre írtam be)
-            if(e.getKeyCode() == R2D2.keys.getRightKey())
-                R2D2.TurnRight(20);//TODO elfordulás rendes érték (ez csak hasraütésre írtam be)
-            if(e.getKeyCode() == R2D2.keys.getDownKey())
-                R2D2.Speed(-20);//TODO elfordulás rendes érték (ez csak hasraütésre írtam be)
-            if(e.getKeyCode() == R2D2.keys.getOilKey())
-                R2D2.keys.oil= true;
-            if(e.getKeyCode() == R2D2.keys.getGlueKey())
-                R2D2.keys.glue= true;
-        }}
+    }
 
 
 }
