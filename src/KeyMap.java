@@ -29,15 +29,6 @@ public class KeyMap {
 
     */
 
-    //irányító gombok értékei (KeyEvent.getCode() alapján
-    // minden robotnak külön irányítása van
-
-    public boolean left;
-    public boolean up;
-    public boolean right;
-    public boolean down;
-    public boolean oil;
-    public boolean glue;
 
     public KeyMap(int leftKey, int upKey, int rightKey, int downKey, int oilKey, int glueKey) {
         this.leftKey = leftKey;
