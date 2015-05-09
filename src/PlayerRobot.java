@@ -22,13 +22,14 @@ public class PlayerRobot extends GameElements {
           Az olajt paraméterül váró visit metódus ezt állítja be.
        */
 
-    public PlayerRobot(Point location, int hitbox, double angle) {
+    public PlayerRobot(Point location, int hitbox, double angle, KeyMap keys) {
         super(location, hitbox);
         speed = 0;    //kezdősebessége
         distance = 0;
         this.angle = angle;
         ammountofGlue = 3;
         ammountofOil = 3;
+        this.keys=keys;
     }
 
     public void Jump() {

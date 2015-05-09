@@ -23,13 +23,17 @@ public class GameControl implements KeyListener {
     public GameControl(GameMapContainer gameMapContainer) {
         this.gameMapContainer = gameMapContainer;
 
-        /*
-        //todo itt kell inicializálni a kezdő pályaelemeket
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(, , 10, )));
-        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(, , 10)));
-        gameMapContainer.addTrap(new Glue(new Point(, )));
-        gameMapContainer.addTrap(new Oil(new Point(, )));
-        */
+        //todo itt kell inicializálni a kezdő pályaelemeket: csak próbának írtam be adatokat!
+        //KeyEvent.getCode() értékei az alábbi gomboknál
+        //LEFT=37, UP=38, RIGHT=39, DOWN=40, ?=44, :=46
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(10,10),10,45,new KeyMap(37,38,39,40,44,46)));
+        //A=65, W=87, D=68, S=83, SHIFT=16, CTRL=17
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(90,90),10,225,new KeyMap(65,87,68,83,16,17)));
+        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(50, 0), 10));
+        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(50, 100), 10));
+        gameMapContainer.addTrap(new Glue(new Point(40,40)));
+        gameMapContainer.addTrap(new Oil(new Point(60,60)));
+
     }
 
 
