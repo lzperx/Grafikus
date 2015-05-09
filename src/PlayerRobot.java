@@ -11,6 +11,7 @@ public class PlayerRobot extends GameElements {
     public double distance;    //összesen megtett távolság
     public int ammountofOil;        //robot olaj készlete
     public int ammountofGlue;       //robot ragacs készlete
+    public KeyMap keys;   // a robot billentyűzetkiosztása
 
     public static enum robotState {NORMAL, OILED}
 

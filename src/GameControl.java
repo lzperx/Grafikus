@@ -1,10 +1,12 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.lang.Math;
 
 
 /*A teljes játékirányításért felelős objektum.*/
 
-public class GameControl {
+public class GameControl implements KeyListener {
 
     /*   Referencia a játékelemeket tároló objektumra,
      *   így tudjuk hogy milyen robotok vannak, és mi hol van a pályán.
@@ -234,4 +236,67 @@ public class GameControl {
             }
         }
     }
+    public void keyPressed(KeyEvent e) {
+
+        for (PlayerRobot R2D2: gameMapContainer.getPlayerRobots()) {
+
+            if(e.getKeyCode()== R2D2.keys.getLeftKey())
+                R2D2.keys.left=true;
+            if(e.getKeyCode() == R2D2.keys.getUpKey())
+                R2D2.keys.up=true;
+            if(e.getKeyCode() == R2D2.keys.getRightKey())
+                R2D2.keys.right=true;
+            if(e.getKeyCode() == R2D2.keys.getDownKey())
+                R2D2.keys.down=true;
+            if(e.getKeyCode() == R2D2.keys.getOilKey())
+                R2D2.keys.oil= true;
+            if(e.getKeyCode() == R2D2.keys.getGlueKey())
+                R2D2.keys.glue= true;
+        }
+    }
+
+
+    /*  gomb felengedésének érzékelése, és
+     *  a megfelelő gomb boolean változójának false ra állítása.
+    */
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+        for (PlayerRobot R2D2: gameMapContainer.getPlayerRobots()) {
+
+            if(e.getKeyCode()== R2D2.keys.getLeftKey())
+                R2D2.keys.left=false;
+            if(e.getKeyCode() == R2D2.keys.getUpKey())
+                R2D2.keys.up=false;
+            if(e.getKeyCode() == R2D2.keys.getRightKey())
+                R2D2.keys.right=false;
+            if(e.getKeyCode() == R2D2.keys.getDownKey())
+                R2D2.keys.down=false;
+        }
+    }
+
+
+    /*  rövid gombnyomások érzékelése a megfelelő
+     *  függvények meghívásával
+    */
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+        for (PlayerRobot R2D2: gameMapContainer.getPlayerRobots()) {
+
+            if(e.getKeyCode()== R2D2.keys.getLeftKey())
+                R2D2.TurnLeft(20);//TODO elfordulás rendes érték (ez csak hasraütésre írtam be)
+            if(e.getKeyCode() == R2D2.keys.getUpKey())
+                R2D2.Speed(20); //TODO elfordulás rendes érték (ez csak hasraütésre írtam be)
+            if(e.getKeyCode() == R2D2.keys.getRightKey())
+                R2D2.TurnRight(20);//TODO elfordulás rendes érték (ez csak hasraütésre írtam be)
+            if(e.getKeyCode() == R2D2.keys.getDownKey())
+                R2D2.Speed(-20);//TODO elfordulás rendes érték (ez csak hasraütésre írtam be)
+            if(e.getKeyCode() == R2D2.keys.getOilKey())
+                R2D2.keys.oil= true;
+            if(e.getKeyCode() == R2D2.keys.getGlueKey())
+                R2D2.keys.glue= true;
+        }}
+
+
 }
