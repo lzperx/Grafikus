@@ -42,6 +42,23 @@ public class GameControl implements KeyListener {
 
     //Ez a fő metódusunk: körök kezelése (kisrobotok, nagyrobotok, foltok szárítása)
     public void RoundManager() {
+        if(gameMapContainer.getPlayerRobots().size() == 1)
+        {
+            Resources.winner = gameMapContainer.getPlayerRobots().get(0).name;
+            Resources.gameEnd = true;
+        }
+        if (Resources.timeLeft == 1)
+        {
+            Resources.gameEnd = true;
+            PlayerRobot winner = gameMapContainer.getPlayerRobots().get(0);
+            for (PlayerRobot r : gameMapContainer.getPlayerRobots())
+            {
+                if(r.distance > winner.distance)
+                    winner = r;
+            }
+            Resources.winner = winner.name;
+
+        }
 
         //minden kör elején lefuttatjuk a kisrobotokat
         for (CleanerRobot cleanerRobot : gameMapContainer.getCleanerRobots()) {
@@ -55,16 +72,23 @@ public class GameControl implements KeyListener {
         }
 
         //lekezeljük a pálya robotjait sorban
-        for (PlayerRobot actualRobot : gameMapContainer.getPlayerRobots()) {
-            //A gombkezelést a keyListener interfészen keresztül nézzük
-            //és ott változtatjuk a játékos robotok értékeit.
-            //a gombok segítségével beállított változásokat futtatjuk az aktuális robotra: Jump()
-            actualRobot.Jump();
-            //ütközést detektálunk
-            Collision(actualRobot);
-            isOutOfMap(actualRobot);
-            //ha ütköztek a robotok, akkor kiugrunk a for ciklusból, mert már csak 1 robot van
-            if(gameMapContainer.getPlayerRobots().size()==1) break;
+        try {
+
+            for (PlayerRobot actualRobot : gameMapContainer.getPlayerRobots()) {
+                //A gombkezelést a keyListener interfészen keresztül nézzük
+                //és ott változtatjuk a játékos robotok értékeit.
+                //a gombok segítségével beállított változásokat futtatjuk az aktuális robotra: Jump()
+                actualRobot.Jump();
+                //ütközést detektálunk
+                Collision(actualRobot);
+                isOutOfMap(actualRobot);
+                //ha ütköztek a robotok, akkor kiugrunk a for ciklusból, mert már csak 1 robot van
+                if (gameMapContainer.getPlayerRobots().size() == 1) break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Resources.gameEnd = true;
         }
 
         //a kör végén lekezeljük külön a csapdákat (szárítás: törlés, ha kiszáradt)

@@ -47,36 +47,40 @@ public class ViewPanel extends JPanel {
     }
 
     private void drawScores(Graphics2D g2d){
-        double distance = 0;
-        int loc = 20;
-        String text = "";
-        for (PlayerRobot r : gameMapContainer.getPlayerRobots()) {
+        double distance;
+        int loc = 1;
+        String text;
 
+        for (PlayerRobot r : gameMapContainer.getPlayerRobots()) { //robotok score-jának kiírása
             distance = r.distance;
             text = r.name + "'s score: " + String.valueOf((int)distance);
-            Font font = new Font("SansSerif", Font.BOLD, 20);
-            g2d.setColor(Color.RED);
-            g2d.setFont(font);
-            TextLayout textLayout = new TextLayout(text, font, g2d.getFontRenderContext());
-            g2d.setPaint(new Color(0, 0, 0));
-            textLayout.draw(g2d, 20 + 2, loc + 2);
-            g2d.setPaint(Color.RED);
-            textLayout.draw(g2d, 20, loc);
-            g2d.drawString(text, 20, loc);
-            loc += 30;
+            drawTextWithShadow(g2d,text, 20, loc*30);
+            loc++;
         }
-        text = "Time left: " + Resources.timeLeft;
+
+        text = "Time left: " + Resources.timeLeft; //játékból hátralévő idő
+        drawTextWithShadow(g2d,text,20, loc*30);
+        loc++;
+
+        if(Resources.gameEnd) //győztes
+        {
+            text = "Winner: " + Resources.winner;
+            drawTextWithShadow(g2d, text, 20, loc*30);
+            loc++;
+        }
+    }
+
+    private void drawTextWithShadow(Graphics2D g2d, String text, int x, int y)
+    {
         Font font = new Font("SansSerif", Font.BOLD, 20);
         g2d.setColor(Color.RED);
         g2d.setFont(font);
         TextLayout textLayout = new TextLayout(text, font, g2d.getFontRenderContext());
         g2d.setPaint(new Color(0, 0, 0));
-        textLayout.draw(g2d, 20 + 2, loc + 2);
+        textLayout.draw(g2d, x + 2, y + 2);
         g2d.setPaint(Color.RED);
-        textLayout.draw(g2d, 20, loc);
-        g2d.drawString(text, 20, loc);
-        loc += 30;
-
+        textLayout.draw(g2d, x, y);
+        g2d.drawString(text, x, y);
     }
 
     private void drawPlayerRobots(Graphics2D g2d){

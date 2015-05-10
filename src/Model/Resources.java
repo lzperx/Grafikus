@@ -18,6 +18,8 @@ public class Resources {
     public static BufferedImage GlueImage;
     public static boolean gridEnabled = true;
     public static int timeLeft = 0; // a játékból hátralévő idő
+    public static boolean gameEnd = false;
+    public static String winner = "Error";
 
     /**
      * A betöltés.

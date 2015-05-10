@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class PlayerRobot extends GameElements {
 
-    public int name; //CSAK INEIGLENESEN a protoban
+    public String name; //CSAK INEIGLENESEN a protoban
 
 
     protected Point nextPosition;   //A robot ahova ugrani fog legközelebb

@@ -17,11 +17,11 @@ public class Main{
             System.out.println(ex.toString());
         }
         Resources.gridEnabled = false; //grid megjelenítése
-        Resources.timeLeft = 500; //a játék hossza
+        Resources.timeLeft = 1000; //a játék hossza
         NewGame g = new NewGame(1400,800);
         g.controller.RoundManager();
-        while (Resources.timeLeft > 0){
-            Thread.sleep(100);
+        while (!Resources.gameEnd){
+            Thread.sleep(30);
             g.controller.RoundManager();
             g.viewFrame.viewPanel.repaint();
             Resources.timeLeft--;

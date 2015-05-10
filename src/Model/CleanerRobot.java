@@ -9,8 +9,8 @@ public class CleanerRobot extends GameElements {
     public int speed=3;               // A robot aktuális sebessége
     public double angle=0;         //A robot aktuális szöge fokban
 
-    public boolean isCleaning=false; //igaz, ha éppen takarít
-    public int TimeOfCleaning=50;    //ennyi ideig(körig) takarítja a foltot TODO 3
+    public boolean isCleaning = false; //igaz, ha éppen takarít
+    public int TimeOfCleaning = 50;    //ennyi ideig(körig) takarítja a foltot TODO 3
     public int cleaningcount = 0;    // ennyi kört tisztított már a TimeofCleaning-ből
 
     public CleanerRobot(Point location, int hitbox) {

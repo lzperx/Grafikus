@@ -53,7 +53,7 @@ public class GameMapContainer {
 
             //IDEIGLENES, proto miatt el kell nevezni őket
             //azért itt mert itt látom a listát, ahol majd lesz benne
-            playerRobot.name=playerRobots.size()+1;
+            playerRobot.name=String.valueOf(playerRobots.size()+1);
 
         playerRobots.add(playerRobot);
        System.out.println( "Sikeres letrehozas: robot[" +
