@@ -54,7 +54,6 @@ public class GameControl implements KeyListener {
             //üztökést detektálunk: frissülnek az adatok
             Collision(cleanerRobot);
 
-
         }
 
         //lekezeljük a pálya robotjait sorban
@@ -65,6 +64,9 @@ public class GameControl implements KeyListener {
             actualRobot.Jump();
             //ütközést detektálunk
             Collision(actualRobot);
+
+            //ha ütköztek a robotok, akkor kiugrunk a for ciklusból, mert már csak 1 robot van
+            if(gameMapContainer.getPlayerRobots().size()==1) break;
         }
 
         //a kör végén lekezeljük külön a csapdákat (szárítás: törlés, ha kiszáradt)
