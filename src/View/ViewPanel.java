@@ -4,6 +4,7 @@ import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
@@ -27,6 +28,7 @@ public class ViewPanel extends JPanel {
     private void doDrawing(Graphics g) {     //ez fut le a repaint() hívásakor.
         Graphics2D g2d = (Graphics2D) g;
         drawBackground(g2d);
+        drawScores(g2d);
         drawTraps(g2d);
         drawCleanerRobots(g2d);
         drawPlayerRobots(g2d);
@@ -41,6 +43,29 @@ public class ViewPanel extends JPanel {
                 g2d.drawLine(i * 100, 0, i * 100, 2000);
                 g2d.drawLine(0, i * 100, 2000, i * 100);
             }
+        }
+    }
+
+    private void drawScores(Graphics2D g2d){
+        double distance = 0;
+        int loc = 20;
+        String text = "";
+        for (PlayerRobot r : gameMapContainer.getPlayerRobots()) {
+            text = r.name + "'s score: " + String.valueOf((int)distance);
+            distance = r.distance;
+            Font font = new Font("SansSerif", Font.BOLD, 20);
+
+            g2d.setColor(Color.RED);
+            g2d.setFont(font);
+
+            TextLayout textLayout = new TextLayout(text, font, g2d.getFontRenderContext());
+            g2d.setPaint(new Color(0, 0, 0));
+            textLayout.draw(g2d, 20 + 2, loc + 2);
+
+            g2d.setPaint(Color.RED);
+            textLayout.draw(g2d, 20, loc);
+            g2d.drawString(text, 20, loc);
+            loc += 30;
         }
     }
 
