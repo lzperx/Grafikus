@@ -1,3 +1,5 @@
+package Model;
+
 import java.awt.*;
 
 // Ragacs csapda, melybe ha a robot belelép, megfelezi a sebességét

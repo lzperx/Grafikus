@@ -1,5 +1,8 @@
-// Visitor interfész a csapdákhoz
+package Model;// Model.Visitor interfész a csapdákhoz
 
+
+import Model.CleanerRobot;
+import Model.PlayerRobot;
 
 public interface Visitor {
 

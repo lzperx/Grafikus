@@ -1,3 +1,5 @@
+package Model;
+
 import java.awt.*;
 
 public class CleanerRobot extends GameElements {
@@ -56,9 +58,7 @@ public class CleanerRobot extends GameElements {
     }
 
     void visit(PlayerRobot playerRobot){
-        angle-=180;
-        angle =(angle)%360;
-        if (angle<0) angle+=360;
+        angle -= 180;
         Jump();
     }
 

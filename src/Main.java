@@ -1,18 +1,30 @@
-import java.awt.*;
 import java.io.*;
-import View.*;
 
-import javax.swing.*;
+import Control.NewGame;
+import Model.Resources;
+import View.*;
 
 public class Main {
 
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, InterruptedException {
 
         String[] sor = null;
-        int i = 0;
-
-      /*  while (bemenet[i++] != null) {
+        try{
+            Resources.load(); //erőforrások betöltése
+        }
+        catch (IOException ex)
+        {
+            System.out.println(ex.toString());
+        }
+        NewGame g = new NewGame(1400,800);
+        g.controller.RoundManager();
+        for (int i = 0; i <20000; i++){
+            Thread.sleep(100);
+            g.controller.RoundManager();
+            g.viewFrame.viewPanel.repaint();
+        }
+        /*while (bemenet[i++] != null) {
             sor = bemenet[i - 1].split(" ");
             ProcessingEnum process = ProcessingEnum.valueOf(sor[0]);
             switch (process) {
@@ -29,10 +41,10 @@ public class Main {
                     shell.RoundManager(sor);
             }
             
-        }
-        */
+        }*/
 
-        //Robot kirajzolás tesztelése -- András
+
+        /*//Robot kirajzolás tesztelése -- András
         Point test = new Point(200,300);
         JFrame gameFrame = new JFrame("Phoebe");
 
@@ -45,7 +57,7 @@ public class Main {
         gameFrame.setVisible(true);
         //System.out.println(frame.getRobotLocation());
         gameFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //Idáig
+        //Idáig*/
 
     }
 }

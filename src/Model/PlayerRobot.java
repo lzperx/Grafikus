@@ -1,3 +1,7 @@
+package Model;
+
+import Control.KeyMap;
+
 import java.awt.*;
 
 public class PlayerRobot extends GameElements {
@@ -7,7 +11,7 @@ public class PlayerRobot extends GameElements {
 
     protected Point nextPosition;   //A robot ahova ugrani fog legközelebb
     public int speed;               // A robot aktuális sebessége
-    public double angle;         //A robot aktuális szöge
+    public double angle;         //A robot aktuális szöge TODO miben? radián vagy fok?
     public double distance;    //összesen megtett távolság
     public int ammountofOil;        //robot olaj készlete
     public int ammountofGlue;       //robot ragacs készlete
@@ -112,7 +116,7 @@ public class PlayerRobot extends GameElements {
     }
 
     void visit(PlayerRobot playerRobot) {
-        //ha ez lefut, akkor azt jelenti, hogy megsemmisült, a GameMapContainer fogja kiírni a halálát
+        //ha ez lefut, akkor azt jelenti, hogy megsemmisült, a Model.GameMapContainer fogja kiírni a halálát
         //konkrétan a Gamecontrolban hívódik meg a gameMapContainer.removePlayerRobot() függvény,
         //azért nem itt, mert a robot nem láthatja a többi robotot
 
@@ -128,7 +132,7 @@ public class PlayerRobot extends GameElements {
         if (speed > C3PO.speed)
             C3PO.visit(this);
 
-        //különben azt jelenti, hogy megsemmisült, a GameMapContainer fogja kiírni a halálát
+        //különben azt jelenti, hogy megsemmisült, a Model.GameMapContainer fogja kiírni a halálát
 
 
 

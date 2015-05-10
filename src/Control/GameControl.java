@@ -1,3 +1,7 @@
+package Control;
+
+import Model.*;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -25,21 +29,22 @@ public class GameControl implements KeyListener {
 
         //todo itt kell inicializálni a kezdő pályaelemeket: csak próbának írtam be adatokat!
         //KeyEvent.getCode() értékei az alábbi gomboknál
-        //LEFT=37, UP=38, RIGHT=39, DOWN=40, ?=44, :=46
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(10,10),10,45,new KeyMap(37,38,39,40,44,46)));
+        //LEFT=37, UP=38, RIGHT=39, DOWN=40, ,=44, .=46
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(200,200),10,45,new KeyMap(37,38,39,40,44,46)));
         //A=65, W=87, D=68, S=83, SHIFT=16, CTRL=17
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(90,90),10,225,new KeyMap(65,87,68,83,16,17)));
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(90,90),10,0,new KeyMap(65,87,68,83,16,17)));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(50, 0), 10));
-        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(50, 100), 10));
-        gameMapContainer.addTrap(new Glue(new Point(40,40)));
-        gameMapContainer.addTrap(new Oil(new Point(60,60)));
+        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(800, 300), 10));
+        gameMapContainer.addTrap(new Glue(new Point(200,300)));
+        gameMapContainer.addTrap(new Oil(new Point(400,400)));
+
 
     }
 
 
     //Ez a fő metódusunk: körök kezelése (kisrobotok, nagyrobotok, foltok szárítása)
     public void RoundManager() {
-
+        System.out.println("new round");
         //minden kör elején lefuttatjuk a kisrobotokat
         for (CleanerRobot cleanerRobot : gameMapContainer.getCleanerRobots()) {
             //beállítjuk a legközelebbi folt felé
@@ -62,6 +67,7 @@ public class GameControl implements KeyListener {
 
         //a kör végén lekezeljük külön a csapdákat (szárítás: törlés, ha kiszáradt)
         removeOldTraps();
+
 
     }
 
@@ -97,7 +103,7 @@ public class GameControl implements KeyListener {
                     R2D2.accept(C3PO);
 
                     //ezt a törlést nem tehettük meg az accept metódusban, hisz a két robot nem láthatja egymást,
-                    //de a GameControl látja őket, itt történik a törlés hívás ténylegesen
+                    //de a Control.GameControl látja őket, itt történik a törlés hívás ténylegesen
                     if (C3PO.speed > R2D2.speed) {
                         gameMapContainer.removePlayerRobot(R2D2);
 

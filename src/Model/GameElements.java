@@ -1,11 +1,13 @@
+package Model;
+
 import java.awt.*;
 
 /* Absztrakt alaposztály, a játékon belüli minden objektum belőle származik.
    Tárolja az adott elem koordinátáit a pályán,
    valamint az adott objektum kiterjedését(méretét)
  */
-public abstract class GameElements implements Visitor{
-    protected Point location;
+public abstract class GameElements implements Visitor {
+    public Point location;
     protected int hitbox;
 
     public GameElements(Point location, int hitbox) {
