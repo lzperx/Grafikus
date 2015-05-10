@@ -21,7 +21,7 @@ public class GameControl implements KeyListener {
     //Ezek a mi globális mértékegységeink a gyorsításnál, fordulásnál
     //minden gomblenyomásnál ennyit fog változni a sebesség/elfordulás
     //todo változtatható
-    public static final int speedChange = 5;
+    public static final int speedChange = 1;
     public static final int angleChange = 10;
 
     //A konstruktorban inicializálunk mindent, létrehozzuk a robotokat, a kezdő elemeket
