@@ -51,8 +51,9 @@ public class ViewPanel extends JPanel {
         int loc = 20;
         String text = "";
         for (PlayerRobot r : gameMapContainer.getPlayerRobots()) {
-            text = r.name + "'s score: " + String.valueOf((int)distance);
+
             distance = r.distance;
+            text = r.name + "'s score: " + String.valueOf((int)distance);
             Font font = new Font("SansSerif", Font.BOLD, 20);
 
             g2d.setColor(Color.RED);
