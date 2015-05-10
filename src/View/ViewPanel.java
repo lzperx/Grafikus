@@ -35,8 +35,8 @@ public class ViewPanel extends JPanel {
         drawAmountOfTraps(g2d);
         if(Resources.gameEnd){
             g2d.drawImage(Resources.WinnerImage,
-                    ((int)gameMapContainer.getResolution().getWidth()/2) - (Resources.WinnerImage.getWidth() / 2),
-                    ((int)gameMapContainer.getResolution().getHeight()/2)- (Resources.WinnerImage.getHeight() / 2),
+                    ((int) gameMapContainer.getResolution().getWidth() / 2) - (Resources.WinnerImage.getWidth() / 2),
+                    ((int) gameMapContainer.getResolution().getHeight() / 2) - (Resources.WinnerImage.getHeight() / 2),
                     null);
         }
 
@@ -45,10 +45,11 @@ public class ViewPanel extends JPanel {
     }
 
     public boolean retryDialogBox(){
-       int reply = JOptionPane.showConfirmDialog(this, "Do you want to start again?", "Really Quit?", JOptionPane.YES_NO_OPTION);
-        if (reply == JOptionPane.NO_OPTION)
-            return false;
-        return true;
+       int reply = JOptionPane.showConfirmDialog(this, "Would you like to start again?","You should stay!",
+               JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,Resources.LZImage);
+        if (reply == JOptionPane.YES_OPTION)
+            return true;
+        return false;
     }
 
     private void drawBackground(Graphics2D g2d){

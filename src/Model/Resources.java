@@ -1,6 +1,7 @@
 package Model;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class Resources {
     public static BufferedImage OilImage;
     public static BufferedImage GlueImage;
     public static BufferedImage WinnerImage;
+    public static ImageIcon LZImage;
     public static boolean gridEnabled = true;
     public static int timeLeft = 0; // a játékból hátralévő idő
     public static boolean gameEnd = false;
@@ -37,5 +39,6 @@ public class Resources {
         OilImage = ImageIO.read(new File("pic/oil.png"));
         GlueImage = ImageIO.read(new File("pic/glue.png"));
         WinnerImage = ImageIO.read(new File("pic/winner.jpg"));
+        LZImage = new ImageIcon("pic/lz.jpg");
     }
 }
