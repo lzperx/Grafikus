@@ -34,7 +34,14 @@ public class ViewPanel extends JPanel {
     }
 
     private void drawBackground(Graphics2D g2d){
+
         g2d.drawImage(Resources.BackgroundImage,0,0,null);
+        if (Resources.gridEnabled) {
+            for (int i = 0; i < 20; i++) {
+                g2d.drawLine(i * 100, 0, i * 100, 2000);
+                g2d.drawLine(0, i * 100, 2000, i * 100);
+            }
+        }
     }
 
     private void drawPlayerRobots(Graphics2D g2d){
@@ -42,10 +49,10 @@ public class ViewPanel extends JPanel {
         //egyik robot
         try {
             r = gameMapContainer.getPlayerRobots().get(0);
-            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth() / 2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight() / 2)); //forgat
+            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
             g2d.drawImage(Resources.PlayerRobot1Image, (int) r.getLocation().getX() - (Resources.PlayerRobot1Image.getWidth() / 2), (int) r.getLocation().getY() - (Resources.PlayerRobot1Image.getHeight() / 2), null);
             //mivel a rajzlapot forgattuk el, vissza kell csinálni
-            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth() / 2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight() / 2)); //forgat
+            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
         }catch (Exception ex)
         {
             System.out.println(ex.toString());
@@ -53,9 +60,9 @@ public class ViewPanel extends JPanel {
         //másik robot
         try {
             r = gameMapContainer.getPlayerRobots().get(1);
-            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth() / 2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight() / 2));
+            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY());
             g2d.drawImage(Resources.PlayerRobot1Image, (int) r.getLocation().getX() - (Resources.PlayerRobot1Image.getWidth() / 2), (int) r.getLocation().getY() - (Resources.PlayerRobot1Image.getHeight() / 2), null);
-            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth() / 2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight() / 2)); //forgat
+            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
         }catch (Exception ex){
             System.out.println(ex.toString());
         }
@@ -63,23 +70,23 @@ public class ViewPanel extends JPanel {
 
     private void drawCleanerRobots(Graphics2D g2d){
         for(CleanerRobot r : gameMapContainer.getCleanerRobots()) {
-            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX() + (Resources.CleanerRobotImage.getWidth() / 2), r.getLocation().getY() + (Resources.CleanerRobotImage.getHeight() / 2)); //forgat
+            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
             g2d.drawImage(Resources.CleanerRobotImage, (int) r.getLocation().getX() - (Resources.CleanerRobotImage.getWidth() / 2), (int) r.getLocation().getY() - (Resources.CleanerRobotImage.getHeight() / 2), null);
             //mivel a rajzlapot forgattuk el, vissza kell csinálni
             System.out.println("drawing: " + r.toString() + "\nat loc: " + r.getLocation() + "\nrotation: " + r.angle + "\n");
-            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX() + (Resources.CleanerRobotImage.getWidth() / 2), r.getLocation().getY() + (Resources.CleanerRobotImage.getHeight() / 2)); //forgat
+            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
         }
     }
 
     private void drawTraps(Graphics2D g2d){
         for(Trap r : gameMapContainer.getTraps()) {
             if(r.toString().contains("Oil")) {
-                g2d.drawImage(TrapText(Resources.OilImage, String.valueOf(r.getTimeToLive())), (int) r.getLocation().getX() - (Resources.OilImage.getWidth() / 2), (int) r.getLocation().getY() - (Resources.OilImage.getHeight() / 2), null);
+                g2d.drawImage(TrapText(Resources.OilImage, String.valueOf(r.getTimeToLive())), (int) r.getLocation().getX() - (Resources.OilImage.getWidth() / 2), (int) r.getLocation().getY() - (Resources.OilImage.getWidth() / 2), null);
                 //System.out.println(r.toString());
             }
             else
             {
-                g2d.drawImage(TrapText(Resources.GlueImage, String.valueOf(r.getTimeToLive())), (int) r.getLocation().getX() - (Resources.GlueImage.getWidth() / 2), (int) r.getLocation().getY() - (Resources.GlueImage.getHeight() / 2), null);
+                g2d.drawImage(TrapText(Resources.GlueImage, String.valueOf(r.getTimeToLive())), (int) r.getLocation().getX()- (Resources.GlueImage.getWidth() / 2), (int) r.getLocation().getY()  - (Resources.GlueImage.getWidth() / 2), null);
             }
         }
     }

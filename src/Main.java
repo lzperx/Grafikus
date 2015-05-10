@@ -6,6 +6,7 @@ import Model.Resources;
 public class Main{
 
 
+
     public static void main(String args[]) throws IOException, InterruptedException {
 
         try{
@@ -15,6 +16,7 @@ public class Main{
         {
             System.out.println(ex.toString());
         }
+        Resources.gridEnabled = false;
         NewGame g = new NewGame(1400,800);
         g.controller.RoundManager();
         for (int i = 0; i <20000; i++){

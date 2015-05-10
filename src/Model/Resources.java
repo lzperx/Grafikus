@@ -16,6 +16,7 @@ public class Resources {
     public static BufferedImage CleanerRobotImage;
     public static BufferedImage OilImage;
     public static BufferedImage GlueImage;
+    public static boolean gridEnabled = true;
 
     /**
      * A betöltés.

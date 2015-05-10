@@ -35,8 +35,8 @@ public class GameControl implements KeyListener {
                 new KeyMap(KeyEvent.VK_A,KeyEvent.VK_W,KeyEvent.VK_D,KeyEvent.VK_S,KeyEvent.VK_SHIFT,KeyEvent.VK_CONTROL)));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(1200, 100), 10));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(100, 600), 10));
-        gameMapContainer.addTrap(new Glue(new Point(350,330)));
-        gameMapContainer.addTrap(new Oil(new Point(1050,400)));
+        gameMapContainer.addTrap(new Glue(new Point(200,200)));
+        gameMapContainer.addTrap(new Oil(new Point(400,400)));
 
 
     }
