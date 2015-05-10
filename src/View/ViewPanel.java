@@ -32,6 +32,7 @@ public class ViewPanel extends JPanel {
         drawTraps(g2d);
         drawCleanerRobots(g2d);
         drawPlayerRobots(g2d);
+        drawAmountOfTraps(g2d);
         if(Resources.gameEnd)
             g2d.drawImage(Resources.WinnerImage,
                     ((int)gameMapContainer.getResolution().getWidth()/2) - (Resources.WinnerImage.getWidth() / 2),
@@ -43,13 +44,31 @@ public class ViewPanel extends JPanel {
 
     private void drawBackground(Graphics2D g2d){
 
-        g2d.drawImage(Resources.BackgroundImage,0,0,null);
+        g2d.drawImage(Resources.BackgroundImage, 0, 0, null);
         if (Resources.gridEnabled) {
             for (int i = 0; i < 20; i++) {
                 g2d.drawLine(i * 100, 0, i * 100, 2000);
                 g2d.drawLine(0, i * 100, 2000, i * 100);
             }
         }
+    }
+
+
+    private void drawAmountOfTraps(Graphics2D g2d){
+        int loc=1;
+        String textOil, textGlue;
+        Color color = Color.RED;
+        for (PlayerRobot r : gameMapContainer.getPlayerRobots()) { //robotok foltmennyiségének kiírása
+            textOil = r.name + "'s amount of oil: " + String.valueOf(r.ammountofOil) + " packs";
+            textGlue = r.name + "'s amount of glue: " + String.valueOf(r.ammountofGlue) + " packs";
+
+            drawTextWithShadow(g2d, textOil, 700, loc* 30, color);
+            drawTextWithShadow(g2d, textGlue, 700, loc*30+30, color);
+            loc=3;
+            color= Color.BLUE;
+
+        }
+
     }
 
     private void drawScores(Graphics2D g2d){
