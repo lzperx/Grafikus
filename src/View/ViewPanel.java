@@ -33,9 +33,12 @@ public class ViewPanel extends JPanel {
         drawCleanerRobots(g2d);
         drawPlayerRobots(g2d);
         if(Resources.gameEnd)
-            g2d.drawImage(Resources.WinnerImage, 200,20,null);
+            g2d.drawImage(Resources.WinnerImage,
+                    ((int)gameMapContainer.getResolution().getWidth()/2) - (Resources.WinnerImage.getWidth() / 2),
+                    ((int)gameMapContainer.getResolution().getHeight()/2)- (Resources.WinnerImage.getHeight() / 2),
+                    null);
 
-        //System.out.println("repainting...");
+
     }
 
     private void drawBackground(Graphics2D g2d){
