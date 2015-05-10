@@ -25,6 +25,7 @@ public class Main {
             g.controller.RoundManager();
             g.viewFrame.viewPanel.repaint();
             Resources.timeLeft--;
+
         }
 
     }
