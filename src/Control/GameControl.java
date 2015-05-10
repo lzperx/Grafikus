@@ -53,6 +53,8 @@ public class GameControl implements KeyListener {
             cleanerRobot.Jump();
             //üztökést detektálunk: frissülnek az adatok
             Collision(cleanerRobot);
+
+
         }
 
         //lekezeljük a pálya robotjait sorban

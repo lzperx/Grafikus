@@ -21,6 +21,7 @@ public class NewGame {
         controller = new GameControl(gameMap);
         viewFrame = new ViewFrame(gameMap, dimension);
         viewFrame.setVisible(true);
+        viewFrame.addKeyListener(controller);
     }
 
 }
