@@ -38,17 +38,27 @@ public class ViewPanel extends JPanel {
     }
 
     private void drawPlayerRobots(Graphics2D g2d){
+        PlayerRobot r = null;
         //egyik robot
-        PlayerRobot r = gameMapContainer.getPlayerRobots().get(0);
-        g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth()/2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight()/2)); //forgat
-        g2d.drawImage(Resources.PlayerRobot1Image, (int)r.getLocation().getX() - (Resources.PlayerRobot1Image.getWidth()/2), (int)r.getLocation().getY() - (Resources.PlayerRobot1Image.getHeight()/2), null);
-        //mivel a rajzlapot forgattuk el, vissza kell csinálni
-        g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth()/2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight()/2)); //forgat
+        try {
+            r = gameMapContainer.getPlayerRobots().get(0);
+            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth() / 2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight() / 2)); //forgat
+            g2d.drawImage(Resources.PlayerRobot1Image, (int) r.getLocation().getX() - (Resources.PlayerRobot1Image.getWidth() / 2), (int) r.getLocation().getY() - (Resources.PlayerRobot1Image.getHeight() / 2), null);
+            //mivel a rajzlapot forgattuk el, vissza kell csinálni
+            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth() / 2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight() / 2)); //forgat
+        }catch (Exception ex)
+        {
+            System.out.println(ex.toString());
+        }
         //másik robot
-        r = gameMapContainer.getPlayerRobots().get(1);
-        g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth()/2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight()/2));
-        g2d.drawImage(Resources.PlayerRobot1Image, (int)r.getLocation().getX() - (Resources.PlayerRobot1Image.getWidth()/2), (int)r.getLocation().getY() - (Resources.PlayerRobot1Image.getHeight()/2), null);
-        g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth()/2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight()/2)); //forgat
+        try {
+            r = gameMapContainer.getPlayerRobots().get(1);
+            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth() / 2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight() / 2));
+            g2d.drawImage(Resources.PlayerRobot1Image, (int) r.getLocation().getX() - (Resources.PlayerRobot1Image.getWidth() / 2), (int) r.getLocation().getY() - (Resources.PlayerRobot1Image.getHeight() / 2), null);
+            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX() + (Resources.PlayerRobot1Image.getWidth() / 2), r.getLocation().getY() + (Resources.PlayerRobot1Image.getHeight() / 2)); //forgat
+        }catch (Exception ex){
+            System.out.println(ex.toString());
+        }
     }
 
     private void drawCleanerRobots(Graphics2D g2d){
