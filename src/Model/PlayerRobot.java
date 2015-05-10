@@ -33,8 +33,8 @@ public class PlayerRobot extends GameElements {
         speed = 2;    //kezdősebessége
         distance = 0;
         this.angle = angle;
-        ammountofGlue = 3;
-        ammountofOil = 3;
+        ammountofGlue = 10;
+        ammountofOil = 10;
         this.keys=keys;
     }
 

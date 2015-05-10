@@ -28,14 +28,14 @@ public class GameControl implements KeyListener {
     public GameControl(GameMapContainer gameMapContainer) {
         this.gameMapContainer = gameMapContainer;
 
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(500,600),10,225,
-                new KeyMap(KeyEvent.VK_LEFT,KeyEvent.VK_UP,KeyEvent.VK_RIGHT,KeyEvent.VK_DOWN,KeyEvent.VK_N,KeyEvent.VK_M)));
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(100,100),10,45,
-                new KeyMap(KeyEvent.VK_A,KeyEvent.VK_W,KeyEvent.VK_D,KeyEvent.VK_S,KeyEvent.VK_SHIFT,KeyEvent.VK_CONTROL)));
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(500, 600), 10, 225,
+                new KeyMap(KeyEvent.VK_LEFT, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_N, KeyEvent.VK_M)));
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(100, 100), 10, 45,
+                new KeyMap(KeyEvent.VK_A, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_SHIFT, KeyEvent.VK_CONTROL)));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(500, 100), 10));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(100, 600), 10));
-        gameMapContainer.addTrap(new Glue(new Point(200,200)));
-        gameMapContainer.addTrap(new Oil(new Point(400,400)));
+        gameMapContainer.addTrap(new Glue(new Point(200, 200)));
+        gameMapContainer.addTrap(new Oil(new Point(400, 400)));
 
 
     }
@@ -43,18 +43,15 @@ public class GameControl implements KeyListener {
 
     //Ez a fő metódusunk: körök kezelése (kisrobotok, nagyrobotok, foltok szárítása)
     public void RoundManager() {
-        if(gameMapContainer.getPlayerRobots().size() == 1)
-        {
+        if (gameMapContainer.getPlayerRobots().size() == 1) {
             Resources.winner = gameMapContainer.getPlayerRobots().get(0).name;
             Resources.gameEnd = true;
         }
-        if (Resources.timeLeft == 1)
-        {
+        if (Resources.timeLeft == 1) {
             Resources.gameEnd = true;
             PlayerRobot winner = gameMapContainer.getPlayerRobots().get(0);
-            for (PlayerRobot r : gameMapContainer.getPlayerRobots())
-            {
-                if(r.distance > winner.distance)
+            for (PlayerRobot r : gameMapContainer.getPlayerRobots()) {
+                if (r.distance > winner.distance)
                     winner = r;
             }
             Resources.winner = winner.name;
@@ -86,9 +83,7 @@ public class GameControl implements KeyListener {
                 //ha ütköztek a robotok, akkor kiugrunk a for ciklusból, mert már csak 1 robot van
                 if (gameMapContainer.getPlayerRobots().size() == 1) break;
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Resources.gameEnd = true;
         }
 
@@ -98,9 +93,9 @@ public class GameControl implements KeyListener {
 
     }
 
-    private void isOutOfMap(PlayerRobot robot){
-        if(robot.getLocation().getX()> gameMapContainer.getResolution().getWidth() || robot.getLocation().getX()< 0 ||
-                robot.getLocation().getY()> gameMapContainer.getResolution().getHeight() || robot.getLocation().getY()< 0){
+    private void isOutOfMap(PlayerRobot robot) {
+        if (robot.getLocation().getX() > gameMapContainer.getResolution().getWidth() || robot.getLocation().getX() < 0 ||
+                robot.getLocation().getY() > gameMapContainer.getResolution().getHeight() || robot.getLocation().getY() < 0) {
             gameMapContainer.removePlayerRobot(robot);
         }
 
@@ -113,8 +108,7 @@ public class GameControl implements KeyListener {
         for (Trap itsATrap : gameMapContainer.getTraps()) {
             if (C3PO.getLocation().distance(itsATrap.getLocation()) < (C3PO.getHitbox() + itsATrap.getHitbox())) {
                 itsATrap.accept(C3PO);
-            }
-            else C3PO.state= PlayerRobot.robotState.NORMAL;
+            } else C3PO.state = PlayerRobot.robotState.NORMAL;
         }
 
         //kisrobotokkal való ütközés lekezelése
@@ -277,8 +271,6 @@ public class GameControl implements KeyListener {
     }
 
 
-
-
     //keylistener-hez tartozó megvalósítandó metódus
     //ha lenyomták az adott gombot, akkor hajtódnak végre az adott változások
     @Override
@@ -294,13 +286,17 @@ public class GameControl implements KeyListener {
             if (e.getKeyCode() == R2D2.keys.getDownKey())
                 R2D2.Speed(-speedChange);
             if (e.getKeyCode() == R2D2.keys.getOilKey()) {
+
+                if (R2D2.ammountofOil > 0)
+                    gameMapContainer.addTrap(new Oil(R2D2.getLocation()));
                 R2D2.PutOil();
-                gameMapContainer.addTrap(new Oil(R2D2.getLocation()));
             }
 
             if (e.getKeyCode() == R2D2.keys.getGlueKey()) {
+
+                if (R2D2.ammountofGlue > 0)
+                    gameMapContainer.addTrap(new Glue(R2D2.getLocation()));
                 R2D2.PutGlue();
-                gameMapContainer.addTrap(new Glue(R2D2.getLocation()));
             }
         }
     }
