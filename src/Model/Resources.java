@@ -24,6 +24,8 @@ public class Resources {
     public static String winner = "Error";
     public static int maxSpeed = 9;
 
+    //hszk gépein úgy fut, ha isHSZK = true;
+    public static boolean isHSZK = false;
     /**
      * A betöltés.
      *
@@ -32,7 +34,18 @@ public class Resources {
     public static void load() throws IOException { //ezt a függvényt illik a program indításakor meghívni,
     // memóriába tölti az erőforrásokat
     // - és időben jelez ha nincsenek meg.
-        BackgroundImage = ImageIO.read(new File("pic/bg.jpg"));
+    	if(isHSZK){
+    	BackgroundImage = ImageIO.read(new File("../pic/bg.jpg"));
+        PlayerRobot1Image = ImageIO.read(new File("../pic/testrobot.png"));
+        PlayerRobot2Image = ImageIO.read(new File("../pic/testrobot2.png"));
+        CleanerRobotImage = ImageIO.read(new File("../pic/kisrobot.png"));
+        OilImage = ImageIO.read(new File("../pic/oil.png"));
+        GlueImage = ImageIO.read(new File("../pic/glue.png"));
+        WinnerImage = ImageIO.read(new File("../pic/winner.jpg"));
+        LZImage = new ImageIcon("../pic/lz.jpg");
+    	}
+    	else{
+    	BackgroundImage = ImageIO.read(new File("pic/bg.jpg"));
         PlayerRobot1Image = ImageIO.read(new File("pic/testrobot.png"));
         PlayerRobot2Image = ImageIO.read(new File("pic/testrobot2.png"));
         CleanerRobotImage = ImageIO.read(new File("pic/kisrobot.png"));
@@ -40,5 +53,7 @@ public class Resources {
         GlueImage = ImageIO.read(new File("pic/glue.png"));
         WinnerImage = ImageIO.read(new File("pic/winner.jpg"));
         LZImage = new ImageIcon("pic/lz.jpg");
+    	}
+        
     }
 }
