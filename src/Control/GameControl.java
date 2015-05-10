@@ -228,7 +228,7 @@ public class GameControl implements KeyListener {
         Point trapLocation = GetMinDistanceTrapLocation(robot);
 
         if (trapLocation.getX() < 0) {
-            System.out.println("Nincsen csapda a palyan.");
+            //System.out.println("Nincsen csapda a palyan.");
             //ekkor baktatunk a sajat szögünkkel tovább
             return robot.angle;
         } else {

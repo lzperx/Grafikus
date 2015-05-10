@@ -34,7 +34,7 @@ public class ViewPanel extends JPanel {
         if(Resources.gameEnd)
             g2d.drawImage(Resources.WinnerImage, 200,20,null);
 
-        System.out.println("repainting...");
+        //System.out.println("repainting...");
     }
 
     private void drawBackground(Graphics2D g2d){
@@ -121,7 +121,7 @@ public class ViewPanel extends JPanel {
             g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
             g2d.drawImage(Resources.CleanerRobotImage, (int) r.getLocation().getX() - (Resources.CleanerRobotImage.getWidth() / 2), (int) r.getLocation().getY() - (Resources.CleanerRobotImage.getHeight() / 2), null);
             //mivel a rajzlapot forgattuk el, vissza kell csinálni
-            System.out.println("drawing: " + r.toString() + "\nat loc: " + r.getLocation() + "\nrotation: " + r.angle + "\n");
+            //System.out.println("drawing: " + r.toString() + "\nat loc: " + r.getLocation() + "\nrotation: " + r.angle + "\n");
             g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
         }
     }

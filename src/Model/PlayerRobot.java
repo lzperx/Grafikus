@@ -43,6 +43,14 @@ public class PlayerRobot extends GameElements {
         nextPosition = new Point(
                 (int) (speed * Math.cos(Math.toRadians(angle))) + (int) location.getX(),
                 (int) (speed * Math.sin(Math.toRadians(angle))) + (int) location.getY());
+        /*if(location.equals(nextPosition) && speed != 0) //tehát ha be van ragadva egy csapdára
+        {
+            System.out.println("BERAGADT!");
+            speed = 2; //akkor meglökjük
+            nextPosition = new Point( //és újraszámoljuk a helyét
+                    (int) (speed * Math.cos(Math.toRadians(angle))) + (int) location.getX(),
+                    (int) (speed * Math.sin(Math.toRadians(angle))) + (int) location.getY());
+        }*/
 
         distance += nextPosition.distance(location);
         location = nextPosition;
@@ -67,9 +75,7 @@ public class PlayerRobot extends GameElements {
     }
 
     public void Speed(int change) {
-        if (speed > Resources.maxSpeed)
-            return;
-        if (speed < -Resources.maxSpeed)
+        if (Math.abs(speed) >= Resources.maxSpeed)
             return;
         if (state == robotState.NORMAL){
            System.out.println( "Robot" + name + " sebesseg-valtoztatas: " + change);
@@ -124,6 +130,8 @@ public class PlayerRobot extends GameElements {
     // így másodpercenként csak egyszer feleződhet
     // (kb 33 fps el fut a game ezért 33 ra reseteljük)
     void visit(Glue glue) {
+        if (speed == 1 || speed == -1) //azért nem nullázzuk :D
+            return;
         if(glueTime==0) {
         speed /= 2;
         System.out.println("Robot" + name + " ragacsra lepett!");
