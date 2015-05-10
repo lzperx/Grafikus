@@ -35,7 +35,7 @@ public class GameControl implements KeyListener {
                 new KeyMap(KeyEvent.VK_A,KeyEvent.VK_W,KeyEvent.VK_D,KeyEvent.VK_S,KeyEvent.VK_SHIFT,KeyEvent.VK_CONTROL)));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(1200, 100), 10));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(100, 600), 10));
-        gameMapContainer.addTrap(new Glue(new Point(350,400)));
+        gameMapContainer.addTrap(new Glue(new Point(350,330)));
         gameMapContainer.addTrap(new Oil(new Point(1050,400)));
 
 
@@ -59,7 +59,6 @@ public class GameControl implements KeyListener {
         for (PlayerRobot actualRobot : gameMapContainer.getPlayerRobots()) {
             //A gombkezelést a keyListener interfészen keresztül nézzük
             //és ott változtatjuk a játékos robotok értékeit.
-
             //a gombok segítségével beállított változásokat futtatjuk az aktuális robotra: Jump()
             actualRobot.Jump();
             //ütközést detektálunk
@@ -78,7 +77,6 @@ public class GameControl implements KeyListener {
 
         //Csapdákkal való ütközés lekezelése
         for (Trap itsATrap : gameMapContainer.getTraps()) {
-
             if (C3PO.getLocation().distance(itsATrap.getLocation()) < (C3PO.getHitbox() + itsATrap.getHitbox())) {
                 itsATrap.accept(C3PO);
             }
