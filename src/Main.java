@@ -3,7 +3,7 @@ import java.io.*;
 import Control.NewGame;
 import Model.Resources;
 
-public class Main{
+public class Main {
 
 
 

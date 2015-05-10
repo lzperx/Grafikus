@@ -26,6 +26,8 @@ public class PlayerRobot extends GameElements {
           Az olajt paraméterül váró visit metódus ezt állítja be.
        */
 
+    public int glueTime = 0;
+
     public PlayerRobot(Point location, int hitbox, double angle, KeyMap keys) {
         super(location, hitbox);
         speed = 10;    //kezdősebessége
@@ -44,6 +46,10 @@ public class PlayerRobot extends GameElements {
 
         distance += nextPosition.distance(location);
         location = nextPosition;
+
+        if(glueTime>0)
+        glueTime--;
+
     }
 
     public void TurnLeft(int change) {
@@ -109,10 +115,16 @@ public class PlayerRobot extends GameElements {
        System.out.println( "Robot" + name + " olajra lepett!");
     }
 
-    void visit(Glue glue) {
 
+    // ha a gluetime 0 csak akkor felezi a robot sebességét,
+    // így másodpercenként csak egyszer feleződhet
+    // (kb 33 fps el fut a game ezért 33 ra reseteljük)
+    void visit(Glue glue) {
+        if(glueTime==0) {
         speed /= 2;
-       System.out.println( "Robot" + name + " ragacsra lepett!");
+        System.out.println("Robot" + name + " ragacsra lepett!");
+            glueTime = 33;
+        }
     }
 
     void visit(PlayerRobot playerRobot) {

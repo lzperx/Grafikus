@@ -20,6 +20,7 @@ public class GameControl implements KeyListener {
 
     //Ezek a mi globális mértékegységeink a gyorsításnál, fordulásnál
     //minden gomblenyomásnál ennyit fog változni a sebesség/elfordulás
+    //todo változtatható
     public static final int speedChange = 1;
     public static final int angleChange = 10;
 
@@ -34,7 +35,7 @@ public class GameControl implements KeyListener {
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(1200, 100), 10));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(100, 600), 10));
         gameMapContainer.addTrap(new Glue(new Point(200,200)));
-        gameMapContainer.addTrap(new Oil(new Point(400, 400)));
+        gameMapContainer.addTrap(new Oil(new Point(400,400)));
 
 
     }
