@@ -34,7 +34,7 @@ public class GameControl implements KeyListener {
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(1200, 100), 10));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(100, 600), 10));
         gameMapContainer.addTrap(new Glue(new Point(200,200)));
-        gameMapContainer.addTrap(new Oil(new Point(400,400)));
+        gameMapContainer.addTrap(new Oil(new Point(400, 400)));
 
 
     }
@@ -74,9 +74,11 @@ public class GameControl implements KeyListener {
     }
 
     private void isOutOfMap(PlayerRobot robot){
-        if(robot.getLocation().getX()> gameMapContainer.getResolution().getWidth() && robot.getLocation().getX()< 0 &&
-                robot.getLocation().getY()> gameMapContainer.getResolution().getHeight() && robot.getLocation().getY()< 0)
-                gameMapContainer.removePlayerRobot(robot);
+        if(robot.getLocation().getX()> gameMapContainer.getResolution().getWidth() || robot.getLocation().getX()< 0 ||
+                robot.getLocation().getY()> gameMapContainer.getResolution().getHeight() || robot.getLocation().getY()< 0){
+            gameMapContainer.removePlayerRobot(robot);
+        }
+
     }
 
     //A nagyrobot ütközéseit kezeljük itt le
