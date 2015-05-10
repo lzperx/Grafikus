@@ -18,7 +18,7 @@ public class Main {
         }
         Resources.gridEnabled = false; //grid megjelenítése
         Resources.timeLeft = 1000; //a játék hossza
-        NewGame g = new NewGame(1400,800);
+        NewGame g = new NewGame(1024,768);
         g.controller.RoundManager();
         while (!Resources.gameEnd){
             Thread.sleep(30);

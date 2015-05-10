@@ -28,11 +28,11 @@ public class GameControl implements KeyListener {
     public GameControl(GameMapContainer gameMapContainer) {
         this.gameMapContainer = gameMapContainer;
 
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(1200,600),10,225,
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(500,600),10,225,
                 new KeyMap(KeyEvent.VK_LEFT,KeyEvent.VK_UP,KeyEvent.VK_RIGHT,KeyEvent.VK_DOWN,KeyEvent.VK_N,KeyEvent.VK_M)));
         gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(100,100),10,45,
                 new KeyMap(KeyEvent.VK_A,KeyEvent.VK_W,KeyEvent.VK_D,KeyEvent.VK_S,KeyEvent.VK_SHIFT,KeyEvent.VK_CONTROL)));
-        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(1200, 100), 10));
+        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(500, 100), 10));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(100, 600), 10));
         gameMapContainer.addTrap(new Glue(new Point(200,200)));
         gameMapContainer.addTrap(new Oil(new Point(400,400)));

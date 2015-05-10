@@ -52,35 +52,42 @@ public class ViewPanel extends JPanel {
         double distance;
         int loc = 1;
         String text;
-
+        Color c = Color.RED;
         for (PlayerRobot r : gameMapContainer.getPlayerRobots()) { //robotok score-jának kiírása
             distance = r.distance;
             text = r.name + "'s score: " + String.valueOf((int)distance);
-            drawTextWithShadow(g2d,text, 20, loc*30);
+            if(r.name.toString().contains("2")) {
+                c = Color.BLUE;
+                drawTextWithShadow(g2d, text, 20, loc * 30, c);
+                c = Color.RED;
+            }
+            else {
+                drawTextWithShadow(g2d, text, 20, loc * 30, c);
+            }
             loc++;
         }
 
         text = "Time left: " + Resources.timeLeft; //játékból hátralévő idő
-        drawTextWithShadow(g2d,text,20, loc*30);
+        drawTextWithShadow(g2d,text,20, loc*30, c);
         loc++;
 
         if(Resources.gameEnd) //győztes
         {
             text = "Winner: " + Resources.winner;
-            drawTextWithShadow(g2d, text, 20, loc*30);
+            drawTextWithShadow(g2d, text, 20, loc*30, c);
             loc++;
         }
     }
 
-    private void drawTextWithShadow(Graphics2D g2d, String text, int x, int y)
+    private void drawTextWithShadow(Graphics2D g2d, String text, int x, int y, Color c)
     {
         Font font = new Font("SansSerif", Font.BOLD, 20);
-        g2d.setColor(Color.RED);
+        g2d.setColor(c);
         g2d.setFont(font);
         TextLayout textLayout = new TextLayout(text, font, g2d.getFontRenderContext());
         g2d.setPaint(new Color(0, 0, 0));
         textLayout.draw(g2d, x + 2, y + 2);
-        g2d.setPaint(Color.RED);
+        g2d.setPaint(c);
         textLayout.draw(g2d, x, y);
         g2d.drawString(text, x, y);
     }
@@ -102,7 +109,7 @@ public class ViewPanel extends JPanel {
         try {
             r = gameMapContainer.getPlayerRobots().get(1);
             g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY());
-            g2d.drawImage(Resources.PlayerRobot1Image, (int) r.getLocation().getX() - (Resources.PlayerRobot1Image.getWidth() / 2), (int) r.getLocation().getY() - (Resources.PlayerRobot1Image.getHeight() / 2), null);
+            g2d.drawImage(Resources.PlayerRobot2Image, (int) r.getLocation().getX() - (Resources.PlayerRobot2Image.getWidth() / 2), (int) r.getLocation().getY() - (Resources.PlayerRobot2Image.getHeight() / 2), null);
             g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
         }catch (Exception ex){
             System.out.println(ex.toString());

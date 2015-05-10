@@ -20,6 +20,7 @@ public class Resources {
     public static int timeLeft = 0; // a játékból hátralévő idő
     public static boolean gameEnd = false;
     public static String winner = "Error";
+    public static int maxSpeed = 7;
 
     /**
      * A betöltés.
@@ -31,7 +32,7 @@ public class Resources {
     // - és időben jelez ha nincsenek meg.
         BackgroundImage = ImageIO.read(new File("pic/bg.jpg"));
         PlayerRobot1Image = ImageIO.read(new File("pic/testrobot.png"));
-        PlayerRobot2Image = ImageIO.read(new File("pic/testrobot.png"));
+        PlayerRobot2Image = ImageIO.read(new File("pic/testrobot2.png"));
         CleanerRobotImage = ImageIO.read(new File("pic/kisrobot.png"));
         OilImage = ImageIO.read(new File("pic/oil.png"));
         GlueImage = ImageIO.read(new File("pic/glue.png"));

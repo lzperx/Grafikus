@@ -30,7 +30,7 @@ public class PlayerRobot extends GameElements {
 
     public PlayerRobot(Point location, int hitbox, double angle, KeyMap keys) {
         super(location, hitbox);
-        speed = 10;    //kezdősebessége
+        speed = 2;    //kezdősebessége
         distance = 0;
         this.angle = angle;
         ammountofGlue = 3;
@@ -67,11 +67,15 @@ public class PlayerRobot extends GameElements {
     }
 
     public void Speed(int change) {
-
+        if (speed > Resources.maxSpeed)
+            return;
+        if (speed < -Resources.maxSpeed)
+            return;
         if (state == robotState.NORMAL){
            System.out.println( "Robot" + name + " sebesseg-valtoztatas: " + change);
             speed += change;
         }
+
 
     }
 
