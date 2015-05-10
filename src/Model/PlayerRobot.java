@@ -116,7 +116,9 @@ public class PlayerRobot extends GameElements {
     }
 
 
-    //timerrel együtt
+    // ha a gluetime 0 csak akkor felezi a robot sebességét,
+    // így másodpercenként csak egyszer feleződhet
+    // (kb 33 fps el fut a game ezért 33 ra reseteljük)
     void visit(Glue glue) {
         if(glueTime==0) {
         speed /= 2;

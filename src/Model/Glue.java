@@ -27,8 +27,13 @@ public class Glue extends Trap {
     @Override
     public void accept(PlayerRobot R2D2) {
 
+
+        // csökkentjük a ragacs életét, mert ráugrott egy robot,
+        // de csak ha érvényes ugrás volt (gluetime ==0)
+        if(R2D2.glueTime==0)
+            timeToLive--;
             R2D2.visit(this);
-            timeToLive--;        // csökkentjük a ragacs életét, mert ráugrott egy robot
+
     }
     @Override
     public void accept(CleanerRobot R2D2) {
