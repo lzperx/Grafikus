@@ -3,23 +3,20 @@ import java.io.*;
 import Control.NewGame;
 import Model.Resources;
 
-public class Main{
-
+public class Main {
 
 
     public static void main(String args[]) throws IOException, InterruptedException {
 
-        try{
+        try {
             Resources.load(); //erőforrások betöltése
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println(ex.toString());
         }
         Resources.gridEnabled = false;
-        NewGame g = new NewGame(1400,800);
+        NewGame g = new NewGame(1400, 800);
         g.controller.RoundManager();
-        for (int i = 0; i <20000; i++){
+        for (int i = 0; i < 20000; i++) {
             Thread.sleep(30);
             g.controller.RoundManager();
             g.viewFrame.viewPanel.repaint();
