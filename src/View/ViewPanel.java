@@ -55,19 +55,28 @@ public class ViewPanel extends JPanel {
             distance = r.distance;
             text = r.name + "'s score: " + String.valueOf((int)distance);
             Font font = new Font("SansSerif", Font.BOLD, 20);
-
             g2d.setColor(Color.RED);
             g2d.setFont(font);
-
             TextLayout textLayout = new TextLayout(text, font, g2d.getFontRenderContext());
             g2d.setPaint(new Color(0, 0, 0));
             textLayout.draw(g2d, 20 + 2, loc + 2);
-
             g2d.setPaint(Color.RED);
             textLayout.draw(g2d, 20, loc);
             g2d.drawString(text, 20, loc);
             loc += 30;
         }
+        text = "Time left: " + Resources.timeLeft;
+        Font font = new Font("SansSerif", Font.BOLD, 20);
+        g2d.setColor(Color.RED);
+        g2d.setFont(font);
+        TextLayout textLayout = new TextLayout(text, font, g2d.getFontRenderContext());
+        g2d.setPaint(new Color(0, 0, 0));
+        textLayout.draw(g2d, 20 + 2, loc + 2);
+        g2d.setPaint(Color.RED);
+        textLayout.draw(g2d, 20, loc);
+        g2d.drawString(text, 20, loc);
+        loc += 30;
+
     }
 
     private void drawPlayerRobots(Graphics2D g2d){

@@ -17,6 +17,7 @@ public class Resources {
     public static BufferedImage OilImage;
     public static BufferedImage GlueImage;
     public static boolean gridEnabled = true;
+    public static int timeLeft = 0; // a játékból hátralévő idő
 
     /**
      * A betöltés.

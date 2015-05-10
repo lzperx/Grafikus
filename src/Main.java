@@ -16,13 +16,15 @@ public class Main{
         {
             System.out.println(ex.toString());
         }
-        Resources.gridEnabled = false;
+        Resources.gridEnabled = false; //grid megjelenítése
+        Resources.timeLeft = 500; //a játék hossza
         NewGame g = new NewGame(1400,800);
         g.controller.RoundManager();
-        for (int i = 0; i <20000; i++){
-            Thread.sleep(1000);
+        while (Resources.timeLeft > 0){
+            Thread.sleep(100);
             g.controller.RoundManager();
             g.viewFrame.viewPanel.repaint();
+            Resources.timeLeft--;
         }
 
     }
