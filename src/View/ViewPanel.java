@@ -5,7 +5,6 @@ import Model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.TextLayout;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
@@ -32,6 +31,8 @@ public class ViewPanel extends JPanel {
         drawTraps(g2d);
         drawCleanerRobots(g2d);
         drawPlayerRobots(g2d);
+        if(Resources.gameEnd)
+            g2d.drawImage(Resources.WinnerImage, 200,20,null);
         System.out.println("repainting...");
     }
 
