@@ -7,7 +7,7 @@ public class Glue extends Trap {
 
     // a ragacs életét mutatja, ráugrásoknként egyel csökken.
     // Miután 4 robot ráugrott, a ragacs eltűnik a pályáról.
-    private int timeToLive = 1;
+    private int timeToLive = 4;
     public Glue(Point location) {
         super(location);
     }

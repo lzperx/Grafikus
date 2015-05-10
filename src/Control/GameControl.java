@@ -82,6 +82,7 @@ public class GameControl implements KeyListener {
             if (C3PO.getLocation().distance(itsATrap.getLocation()) < (C3PO.getHitbox() + itsATrap.getHitbox())) {
                 itsATrap.accept(C3PO);
             }
+            else C3PO.state= PlayerRobot.robotState.NORMAL;
         }
 
         //kisrobotokkal való ütközés lekezelése
