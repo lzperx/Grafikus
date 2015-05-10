@@ -29,7 +29,7 @@ public class Resources {
         PlayerRobot1Image = ImageIO.read(new File("pic/testrobot.png"));
         PlayerRobot2Image = ImageIO.read(new File("pic/testrobot.png"));
         CleanerRobotImage = ImageIO.read(new File("pic/kisrobot.png"));
-        OilImage = ImageIO.read(new File("pic/oil.png")); //TODO rendberakni
+        OilImage = ImageIO.read(new File("pic/oil.png"));
         GlueImage = ImageIO.read(new File("pic/glue.png"));
     }
 }
