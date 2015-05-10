@@ -15,6 +15,7 @@ public class ViewFrame extends JFrame {
         setTitle("LZ/X :: Phoebe Project");
         setSize(size.width, size.height);
         setLocationRelativeTo(null);
+        setResizable(false);
         viewPanel.repaint();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
