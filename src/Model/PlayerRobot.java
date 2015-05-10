@@ -115,6 +115,8 @@ public class PlayerRobot extends GameElements {
        System.out.println( "Robot" + name + " olajra lepett!");
     }
 
+
+    //timerrel együtt
     void visit(Glue glue) {
         if(glueTime==0) {
         speed /= 2;
