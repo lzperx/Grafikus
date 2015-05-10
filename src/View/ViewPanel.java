@@ -8,6 +8,7 @@ import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
+import java.nio.Buffer;
 
 
 // az ablakon belül lévő megjelenítő panelt valósítja meg.
@@ -57,7 +58,7 @@ public class ViewPanel extends JPanel {
             distance = r.distance;
             text = r.name + "'s score: " + String.valueOf((int)distance);
             if(r.name.toString().contains("2")) {
-                c = Color.BLUE;
+                c = Color.CYAN;
                 drawTextWithShadow(g2d, text, 20, loc * 30, c);
                 c = Color.RED;
             }
@@ -93,25 +94,21 @@ public class ViewPanel extends JPanel {
     }
 
     private void drawPlayerRobots(Graphics2D g2d){
-        PlayerRobot r = null;
-        //egyik robot
         try {
-            r = gameMapContainer.getPlayerRobots().get(0);
-            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
-            g2d.drawImage(Resources.PlayerRobot1Image, (int) r.getLocation().getX() - (Resources.PlayerRobot1Image.getWidth() / 2), (int) r.getLocation().getY() - (Resources.PlayerRobot1Image.getHeight() / 2), null);
-            //mivel a rajzlapot forgattuk el, vissza kell csinálni
-            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
+            for (PlayerRobot r : gameMapContainer.getPlayerRobots()) {
+                g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
+                BufferedImage img;
+                if(r.name.toString().contains("2")) {
+                    img = Resources.PlayerRobot2Image;
+                }
+                else {
+                    img = Resources.PlayerRobot1Image;
+                }
+                g2d.drawImage(img, (int) r.getLocation().getX() - (img.getWidth() / 2), (int) r.getLocation().getY() - (img.getHeight() / 2), null);
+                g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
+            }
         }catch (Exception ex)
         {
-            System.out.println(ex.toString());
-        }
-        //másik robot
-        try {
-            r = gameMapContainer.getPlayerRobots().get(1);
-            g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY());
-            g2d.drawImage(Resources.PlayerRobot2Image, (int) r.getLocation().getX() - (Resources.PlayerRobot2Image.getWidth() / 2), (int) r.getLocation().getY() - (Resources.PlayerRobot2Image.getHeight() / 2), null);
-            g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
-        }catch (Exception ex){
             System.out.println(ex.toString());
         }
     }
