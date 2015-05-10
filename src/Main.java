@@ -20,7 +20,7 @@ public class Main{
         NewGame g = new NewGame(1400,800);
         g.controller.RoundManager();
         for (int i = 0; i <20000; i++){
-            Thread.sleep(100);
+            Thread.sleep(30);
             g.controller.RoundManager();
             g.viewFrame.viewPanel.repaint();
         }
