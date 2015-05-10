@@ -20,7 +20,7 @@ public class GameControl implements KeyListener {
 
     //Ezek a mi globális mértékegységeink a gyorsításnál, fordulásnál
     //minden gomblenyomásnál ennyit fog változni a sebesség/elfordulás
-    //todo lehetnek más értékek is
+    //todo változtatható
     public static final int speedChange = 5;
     public static final int angleChange = 10;
 
@@ -28,16 +28,15 @@ public class GameControl implements KeyListener {
     public GameControl(GameMapContainer gameMapContainer) {
         this.gameMapContainer = gameMapContainer;
 
-        //todo itt kell inicializálni a kezdő pályaelemeket: csak próbának írtam be adatokat!
-        //KeyEvent.getCode() értékei az alábbi gomboknál
-        //LEFT=37, UP=38, RIGHT=39, DOWN=40, ,=44, .=46
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(200,200),10,45,new KeyMap(37,38,39,40,44,46)));
-        //A=65, W=87, D=68, S=83, SHIFT=16, CTRL=17
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(90,90),10,0,new KeyMap(65,87,68,83,16,17)));
-        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(50, 0), 10));
-        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(800, 300), 10));
-        gameMapContainer.addTrap(new Glue(new Point(200,300)));
-        gameMapContainer.addTrap(new Oil(new Point(400,400)));
+        //todo itt kell inicializálni a kezdő pályaelemeket: változtatható
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(1200,600),10,225,
+                new KeyMap(KeyEvent.VK_LEFT,KeyEvent.VK_UP,KeyEvent.VK_RIGHT,KeyEvent.VK_DOWN,KeyEvent.VK_N,KeyEvent.VK_M)));
+        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(100,100),10,45,
+                new KeyMap(KeyEvent.VK_A,KeyEvent.VK_W,KeyEvent.VK_D,KeyEvent.VK_S,KeyEvent.VK_SHIFT,KeyEvent.VK_CONTROL)));
+        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(1200, 100), 10));
+        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(100, 600), 10));
+        gameMapContainer.addTrap(new Glue(new Point(350,400)));
+        gameMapContainer.addTrap(new Oil(new Point(1050,400)));
 
 
     }
@@ -60,6 +59,7 @@ public class GameControl implements KeyListener {
         for (PlayerRobot actualRobot : gameMapContainer.getPlayerRobots()) {
             //A gombkezelést a keyListener interfészen keresztül nézzük
             //és ott változtatjuk a játékos robotok értékeit.
+
             //a gombok segítségével beállított változásokat futtatjuk az aktuális robotra: Jump()
             actualRobot.Jump();
             //ütközést detektálunk
@@ -251,7 +251,6 @@ public class GameControl implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
-
 
             if (e.getKeyCode() == R2D2.keys.getLeftKey())
                 R2D2.TurnLeft(angleChange);
