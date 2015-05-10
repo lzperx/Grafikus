@@ -20,15 +20,13 @@ public class GameControl implements KeyListener {
 
     //Ezek a mi globális mértékegységeink a gyorsításnál, fordulásnál
     //minden gomblenyomásnál ennyit fog változni a sebesség/elfordulás
-    //todo változtatható
-    public static final int speedChange = 5;
+    public static final int speedChange = 1;
     public static final int angleChange = 10;
 
     //A konstruktorban inicializálunk mindent, létrehozzuk a robotokat, a kezdő elemeket
     public GameControl(GameMapContainer gameMapContainer) {
         this.gameMapContainer = gameMapContainer;
 
-        //todo itt kell inicializálni a kezdő pályaelemeket: változtatható
         gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(1200,600),10,225,
                 new KeyMap(KeyEvent.VK_LEFT,KeyEvent.VK_UP,KeyEvent.VK_RIGHT,KeyEvent.VK_DOWN,KeyEvent.VK_N,KeyEvent.VK_M)));
         gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(100,100),10,45,
@@ -44,7 +42,7 @@ public class GameControl implements KeyListener {
 
     //Ez a fő metódusunk: körök kezelése (kisrobotok, nagyrobotok, foltok szárítása)
     public void RoundManager() {
-        System.out.println("new round");
+
         //minden kör elején lefuttatjuk a kisrobotokat
         for (CleanerRobot cleanerRobot : gameMapContainer.getCleanerRobots()) {
             //beállítjuk a legközelebbi folt felé
@@ -64,7 +62,7 @@ public class GameControl implements KeyListener {
             actualRobot.Jump();
             //ütközést detektálunk
             Collision(actualRobot);
-
+            isOutOfMap(actualRobot);
             //ha ütköztek a robotok, akkor kiugrunk a for ciklusból, mert már csak 1 robot van
             if(gameMapContainer.getPlayerRobots().size()==1) break;
         }
@@ -75,6 +73,11 @@ public class GameControl implements KeyListener {
 
     }
 
+    private void isOutOfMap(PlayerRobot robot){
+        if(robot.getLocation().getX()> gameMapContainer.getResolution().getWidth() && robot.getLocation().getX()< 0 &&
+                robot.getLocation().getY()> gameMapContainer.getResolution().getHeight() && robot.getLocation().getY()< 0)
+                gameMapContainer.removePlayerRobot(robot);
+    }
 
     //A nagyrobot ütközéseit kezeljük itt le
     private void Collision(PlayerRobot C3PO) {

@@ -44,6 +44,9 @@ public class GameMapContainer {
         return traps;
     }
 
+    public Dimension getResolution() {
+        return resolution;
+    }
 
     //nagyrobot hozzáadása
     public void addPlayerRobot(PlayerRobot playerRobot) {
