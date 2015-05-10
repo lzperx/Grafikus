@@ -11,7 +11,7 @@ public class PlayerRobot extends GameElements {
 
     protected Point nextPosition;   //A robot ahova ugrani fog legközelebb
     public int speed;               // A robot aktuális sebessége
-    public double angle;         //A robot aktuális szöge TODO miben? radián vagy fok?
+    public double angle;         //A robot aktuális szöge, FOKBAN
     public double distance;    //összesen megtett távolság
     public int ammountofOil;        //robot olaj készlete
     public int ammountofGlue;       //robot ragacs készlete

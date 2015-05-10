@@ -7,7 +7,7 @@ public class CleanerRobot extends GameElements {
 
     protected Point nextPosition;   //A robot ahova ugrani fog legközelebb
     public int speed=3;               // A robot aktuális sebessége
-    public double angle=0;         //A robot aktuális szöge
+    public double angle=0;         //A robot aktuális szöge fokban
 
     public boolean isCleaning=false; //igaz, ha éppen takarít
     public int TimeOfCleaning=3;    //ennyi ideig(körig) takarítja a foltot
