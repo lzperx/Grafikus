@@ -33,6 +33,7 @@ public class ViewPanel extends JPanel {
         drawPlayerRobots(g2d);
         if(Resources.gameEnd)
             g2d.drawImage(Resources.WinnerImage, 200,20,null);
+
         System.out.println("repainting...");
     }
 
