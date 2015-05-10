@@ -215,7 +215,7 @@ public class GameControl implements KeyListener {
         return false;
     }
 
-    //visszatér az átadott robot új szögével
+    //visszatér az átadott robot új szögével fokban
     private double setAngleofCleanerRobot(CleanerRobot robot) {
 
         double angle = 0;

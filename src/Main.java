@@ -30,10 +30,13 @@ public class Main {
             }
 
             //megkérdezi, hogy újra kezdjük-e
-            Thread.sleep(4000);
+            Thread.sleep(2000);
             if(!g.viewFrame.viewPanel.retryDialogBox())
                 System.exit(0);
-            else Resources.gameEnd=false;
+            else {
+                Resources.gameEnd=false;
+                g.viewFrame.dispose();
+            }
 
 
         }
