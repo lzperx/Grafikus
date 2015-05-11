@@ -308,19 +308,7 @@ public void pollKey(){
                 R2D2.TurnRight(angleChange);
             if (e.getKeyCode() == R2D2.keys.getDownKey())
                 R2D2.Speed(-speedChange);
-            if (e.getKeyCode() == R2D2.keys.getOilKey()) {
 
-                if (R2D2.ammountofOil > 0)
-                    gameMapContainer.addTrap(new Oil(R2D2.getLocation()));
-                R2D2.PutOil();
-            }
-
-            if (e.getKeyCode() == R2D2.keys.getGlueKey()) {
-
-                if (R2D2.ammountofGlue > 0)
-                    gameMapContainer.addTrap(new Glue(R2D2.getLocation()));
-                R2D2.PutGlue();
-            }
         }
 
     }
@@ -341,6 +329,19 @@ public void pollKey(){
                 R2D2.keys.right = false;
             if (e.getKeyCode() == R2D2.keys.getDownKey())
                 R2D2.keys.down = false;
+            if (e.getKeyCode() == R2D2.keys.getOilKey()) {
+
+                if (R2D2.ammountofOil > 0)
+                    gameMapContainer.addTrap(new Oil(R2D2.getLocation()));
+                R2D2.PutOil();
+            }
+
+            if (e.getKeyCode() == R2D2.keys.getGlueKey()) {
+
+                if (R2D2.ammountofGlue > 0)
+                    gameMapContainer.addTrap(new Glue(R2D2.getLocation()));
+                R2D2.PutGlue();
+            }
         }
     }
 

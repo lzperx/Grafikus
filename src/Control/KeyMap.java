@@ -18,8 +18,7 @@ public class KeyMap {
     public boolean up;
     public boolean right;
     public boolean down;
-    public boolean oil;
-    public boolean glue;
+
 
     public KeyMap(int leftKey, int upKey, int rightKey, int downKey, int oilKey, int glueKey) {
         this.leftKey = leftKey;
