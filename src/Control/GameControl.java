@@ -94,7 +94,7 @@ public class GameControl implements KeyListener {
 
         //a kör végén lekezeljük külön a csapdákat (szárítás: törlés, ha kiszáradt)
         removeOldTraps();
-
+pollKey();
 
     }
 
@@ -275,11 +275,26 @@ public class GameControl implements KeyListener {
         }
     }
 
+public void pollKey(){
+    for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
+
+        if (R2D2.keys.left)
+            R2D2.TurnLeft(angleChange);
+        if (R2D2.keys.up)
+            R2D2.Speed(speedChange);
+        if (R2D2.keys.right)
+            R2D2.TurnRight(angleChange);
+        if (R2D2.keys.down)
+            R2D2.Speed(-speedChange);
+    }
+}
 
     //keylistener-hez tartozó megvalósítandó metódus
     //ha lenyomták az adott gombot, akkor hajtódnak végre az adott változások
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyTyped(KeyEvent e) {
+
+
         for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
 
             if (e.getKeyCode() == R2D2.keys.getLeftKey())
@@ -304,6 +319,7 @@ public class GameControl implements KeyListener {
                 R2D2.PutGlue();
             }
         }
+
     }
 
 
@@ -311,12 +327,37 @@ public class GameControl implements KeyListener {
     //nekünk most itt nem kell használnunk
     @Override
     public void keyReleased(KeyEvent e) {
+
+        for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
+
+            if (e.getKeyCode() == R2D2.keys.getLeftKey())
+                R2D2.keys.left = false;
+            if (e.getKeyCode() == R2D2.keys.getUpKey())
+                R2D2.keys.up = false;
+            if (e.getKeyCode() == R2D2.keys.getRightKey())
+                R2D2.keys.right = false;
+            if (e.getKeyCode() == R2D2.keys.getDownKey())
+                R2D2.keys.down = false;
+        }
     }
 
     //keylistener-hez tartozó megvalósítandó metódus
     //nekünk most itt nem kell használnunk
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
+
+
+        for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
+
+            if (e.getKeyCode() == R2D2.keys.getLeftKey())
+                R2D2.keys.left = true;
+            if (e.getKeyCode() == R2D2.keys.getUpKey())
+                R2D2.keys.up = true;
+            if (e.getKeyCode() == R2D2.keys.getRightKey())
+                R2D2.keys.right = true;
+            if (e.getKeyCode() == R2D2.keys.getDownKey())
+                R2D2.keys.down = true;
+        }
     }
 
 

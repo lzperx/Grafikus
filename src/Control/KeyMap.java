@@ -1,8 +1,8 @@
 package Control;
 
 /*
- A robothoz rendelt gombok értékének tárolásáért felelõs osztály
- Ezeket kérdezzük le a KeyListener használatánál
+ A robothoz rendelt gombok ï¿½rtï¿½kï¿½nek tï¿½rolï¿½sï¿½ï¿½rt felelï¿½s osztï¿½ly
+ Ezeket kï¿½rdezzï¿½k le a KeyListener hasznï¿½latï¿½nï¿½l
  */
 
 public class KeyMap {
@@ -13,6 +13,13 @@ public class KeyMap {
     private int downKey;
     private int oilKey;
     private int glueKey;
+
+    public boolean left;
+    public boolean up;
+    public boolean right;
+    public boolean down;
+    public boolean oil;
+    public boolean glue;
 
     public KeyMap(int leftKey, int upKey, int rightKey, int downKey, int oilKey, int glueKey) {
         this.leftKey = leftKey;
