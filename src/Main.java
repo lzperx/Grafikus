@@ -35,6 +35,9 @@ public class Main {
             while (Resources.startSound.isActive()){
                 Thread.sleep(500);
             }
+            while (Resources.crashSound.isActive()){
+                Thread.sleep(500);
+            }
             Resources.winnerSound.start();
             //megkérdezi, hogy újra kezdjük-e
             Thread.sleep(3000);

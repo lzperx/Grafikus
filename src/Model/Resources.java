@@ -31,8 +31,11 @@ public class Resources {
     public static Clip winnerSound;
     public static Clip startSound;
     public static Clip hogyneSound;
+    public static Clip collisionSound;
+    public static Clip crashSound;
 
-    //hszk gépein úgy fut, ha isHSZK = true;
+
+        //hszk gépein úgy fut, ha isHSZK = true;
     public static boolean isHSZK = false;
     /**
      * A betöltés.
@@ -57,6 +60,10 @@ public class Resources {
         startSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/start.wav"))));
         hogyneSound = AudioSystem.getClip();
         hogyneSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/LZ_hogyne.wav"))));
+        collisionSound = AudioSystem.getClip();
+        collisionSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/collision.wav"))));
+        crashSound = AudioSystem.getClip();
+        crashSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/crash.wav"))));
     	}
     	else{
     	BackgroundImage = ImageIO.read(new File("pic/bg.jpg"));
@@ -73,6 +80,10 @@ public class Resources {
         startSound.open(AudioSystem.getAudioInputStream((new File("Sounds/start.wav"))));
         hogyneSound = AudioSystem.getClip();
         hogyneSound.open(AudioSystem.getAudioInputStream((new File("Sounds/LZ_hogyne.wav"))));
+        collisionSound = AudioSystem.getClip();
+        collisionSound.open(AudioSystem.getAudioInputStream((new File("Sounds/collision.wav"))));
+        crashSound = AudioSystem.getClip();
+        crashSound.open(AudioSystem.getAudioInputStream((new File("Sounds/crash.wav"))));
     	}
         
     }

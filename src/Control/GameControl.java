@@ -138,6 +138,7 @@ pollKey();
                     //ezt a törlést nem tehettük meg az accept metódusban, hisz a két robot nem láthatja egymást,
                     //de a Control.GameControl látja őket, itt történik a törlés hívás ténylegesen
                     if (C3PO.speed > R2D2.speed) {
+                        Resources.crashSound.start();
                         gameMapContainer.removePlayerRobot(R2D2);
 
                         //ha tehát R2D2 halt meg, akkor visszatérünk rögtön, mert különben
@@ -145,6 +146,7 @@ pollKey();
                         //így a 2. robot (ami most már így az 1. a listában) nem lesz található
                         break;
                     } else {
+                        Resources.crashSound.start();
                         gameMapContainer.removePlayerRobot(C3PO);
                         break;
                     }
@@ -182,6 +184,7 @@ pollKey();
         //Nagyrobotokkal való ütközés
         for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
             if (C3PO.getLocation().distance(R2D2.getLocation()) < (C3PO.getHitbox() + R2D2.getHitbox())) {
+                Resources.collisionSound.start();
                 R2D2.accept(C3PO);
             }
 
