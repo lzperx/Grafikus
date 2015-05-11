@@ -6,9 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by Balázs on 2015.05.10..
- */
+    /*
+        A pályán lévő használni kívánt képek és egyéb erőforrások
+        betöltésére hivatott osztály
+     */
 public class Resources {
     public static BufferedImage BackgroundImage;
     public static BufferedImage PlayerRobot1Image;

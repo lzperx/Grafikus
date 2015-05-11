@@ -1,5 +1,10 @@
 package Control;
 
+/*
+ A robothoz rendelt gombok értékének tárolásáért felelõs osztály
+ Ezeket kérdezzük le a KeyListener használatánál
+ */
+
 public class KeyMap {
 
     private int leftKey;
