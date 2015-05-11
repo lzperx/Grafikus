@@ -28,7 +28,6 @@ public class Main {
                 g.controller.RoundManager();
                 g.viewFrame.viewPanel.repaint();
                 Resources.timeLeft--;
-
             }
 
             //Megnézi, hogy fut e a játék indulásának hangja, és ha igen akkor vár a lejátszással
