@@ -94,7 +94,7 @@ public class GameControl implements KeyListener {
 
         //a kör végén lekezeljük külön a csapdákat (szárítás: törlés, ha kiszáradt)
         removeOldTraps();
-pollKey();
+        pollKey();
 
     }
 
@@ -278,19 +278,19 @@ pollKey();
         }
     }
 
-public void pollKey(){
-    for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
+    public void pollKey() {
+        for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
 
-        if (R2D2.keys.left)
-            R2D2.TurnLeft(angleChange);
-        if (R2D2.keys.up)
-            R2D2.Speed(speedChange);
-        if (R2D2.keys.right)
-            R2D2.TurnRight(angleChange);
-        if (R2D2.keys.down)
-            R2D2.Speed(-speedChange);
+            if (R2D2.keys.left)
+                R2D2.TurnLeft(angleChange);
+            if (R2D2.keys.up)
+                R2D2.Speed(speedChange);
+            if (R2D2.keys.right)
+                R2D2.TurnRight(angleChange);
+            if (R2D2.keys.down)
+                R2D2.Speed(-speedChange);
+        }
     }
-}
 
     //keylistener-hez tartozó megvalósítandó metódus
     //ha lenyomták az adott gombot, akkor hajtódnak végre az adott változások
@@ -360,6 +360,19 @@ public void pollKey(){
                 R2D2.keys.right = true;
             if (e.getKeyCode() == R2D2.keys.getDownKey())
                 R2D2.keys.down = true;
+            if (e.getKeyCode() == R2D2.keys.getOilKey()) {
+
+                if (R2D2.ammountofOil > 0)
+                    gameMapContainer.addTrap(new Oil(R2D2.getLocation()));
+                R2D2.PutOil();
+            }
+
+            if (e.getKeyCode() == R2D2.keys.getGlueKey()) {
+
+                if (R2D2.ammountofGlue > 0)
+                    gameMapContainer.addTrap(new Glue(R2D2.getLocation()));
+                R2D2.PutGlue();
+            }
         }
     }
 
