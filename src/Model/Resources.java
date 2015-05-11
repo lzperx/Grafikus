@@ -1,6 +1,10 @@
 package Model;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -24,6 +28,9 @@ public class Resources {
     public static boolean gameEnd = false;
     public static String winner = "Error";
     public static int maxSpeed = 9;
+    public static Clip winnerSound;
+    public static Clip startSound;
+    public static Clip hogyneSound;
 
     //hszk gépein úgy fut, ha isHSZK = true;
     public static boolean isHSZK = false;
@@ -32,7 +39,7 @@ public class Resources {
      *
      * @throws IOException
      */
-    public static void load() throws IOException { //ezt a függvényt illik a program indításakor meghívni,
+    public static void load() throws IOException, LineUnavailableException, UnsupportedAudioFileException { //ezt a függvényt illik a program indításakor meghívni,
     // memóriába tölti az erőforrásokat
     // - és időben jelez ha nincsenek meg.
     	if(isHSZK){
@@ -44,6 +51,12 @@ public class Resources {
         GlueImage = ImageIO.read(new File("../pic/glue.png"));
         WinnerImage = ImageIO.read(new File("../pic/winner.jpg"));
         LZImage = new ImageIcon("../pic/lz.jpg");
+        winnerSound = AudioSystem.getClip();
+        winnerSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/yourwinner.wav"))));
+        startSound = AudioSystem.getClip();
+        startSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/start.wav"))));
+        hogyneSound = AudioSystem.getClip();
+        hogyneSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/LZ_hogyne.wav"))));
     	}
     	else{
     	BackgroundImage = ImageIO.read(new File("pic/bg.jpg"));
@@ -54,6 +67,12 @@ public class Resources {
         GlueImage = ImageIO.read(new File("pic/glue.png"));
         WinnerImage = ImageIO.read(new File("pic/winner.jpg"));
         LZImage = new ImageIcon("pic/lz.jpg");
+        winnerSound = AudioSystem.getClip();
+        winnerSound.open(AudioSystem.getAudioInputStream((new File("Sounds/yourwinner.wav"))));
+        startSound = AudioSystem.getClip();
+        startSound.open(AudioSystem.getAudioInputStream((new File("Sounds/start.wav"))));
+        hogyneSound = AudioSystem.getClip();
+        hogyneSound.open(AudioSystem.getAudioInputStream((new File("Sounds/LZ_hogyne.wav"))));
     	}
         
     }
