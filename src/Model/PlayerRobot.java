@@ -75,14 +75,20 @@ public class PlayerRobot extends GameElements {
     }
 
     public void Speed(int change) {
-        if (!(Math.abs(speed) >= Resources.maxSpeed)) {
-            //return;
-            if (state == robotState.NORMAL) {
-                System.out.println("Robot" + name + " sebesseg-valtoztatas: " + change);
-                speed += change;
+        if ( change > 0){
+        if (speed >= Resources.maxSpeed)
+            return;}
+        if (change < 0) {
+            if (speed <= (Resources.maxSpeed * -1)) {
+                return;
             }
+        }
+        if (state == robotState.NORMAL){
+           System.out.println( "Robot" + name + " sebesseg-valtoztatas: " + change);
+            speed += change;
+        }
 
-        }else if(speed>0)speed=Resources.maxSpeed-1;else speed=-Resources.maxSpeed+1;
+
     }
 
     public boolean PutGlue() {
