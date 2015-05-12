@@ -27,7 +27,7 @@ public class Bullet extends GameElements {
 
     @Override
     public void accept(PlayerRobot robot) {
-        robot.snapping();
+        robot.gotHit();
     }
 
     @Override

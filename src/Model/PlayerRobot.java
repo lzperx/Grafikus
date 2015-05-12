@@ -190,4 +190,18 @@ public class PlayerRobot extends GameElements {
         speed=3;
     }
 
+    public void gotHit(){
+        Random rand = new Random();
+        int plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+        double tempangle = angle;
+        int startspeed = speed;
+        angle = angle - 180 + plusOrMinus * rand.nextInt(50);
+        angle = (angle) % 360;
+        if (angle < 0) angle += 360;
+        speed=40;
+        Jump();
+        speed=startspeed;
+        angle = tempangle;
+    }
+
 }
