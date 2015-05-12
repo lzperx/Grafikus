@@ -91,18 +91,14 @@ public class CleanerRobot extends GameElements {
         speed=3;
     }
 
-    public void gotHit(){
-        Random rand = new Random();
-        int plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-        double tempangle = angle;
+    public void gotHit(Bullet projectile){
+        double startangle = angle;
         int startspeed = speed;
-        angle = angle - 180 + plusOrMinus * rand.nextInt(50);
-        angle = (angle) % 360;
-        if (angle < 0) angle += 360;
-        speed=40;
+        angle = projectile.getAngle();
+        speed = 20;
         Jump();
-        speed=startspeed;
-        angle = tempangle;
+        speed = startspeed;
+        angle = startangle;
     }
 
 

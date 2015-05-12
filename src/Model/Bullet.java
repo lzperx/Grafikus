@@ -25,13 +25,15 @@ public class Bullet extends GameElements {
 
     }
 
+    public double getAngle(){return  angle;}
+
     @Override
     public void accept(PlayerRobot robot) {
-        robot.gotHit();
+        robot.gotHit(this);
     }
 
     @Override
     public void accept(CleanerRobot robot) {
-        robot.gotHit();
+        robot.gotHit(this);
     }
 }
