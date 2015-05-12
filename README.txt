@@ -1,10 +1,10 @@
 
 Robotok kezelése:
 	Robot1:
-		- gyorsítás: numpad 8
-		- lassíás: numpad 5
-		- balra fordulás: numpad 4
-		- jobbra fordulás: numpad 6
+		- gyorsítás: felfele nyíl
+		- lassíás: lefele nyíl
+		- balra fordulás: balra nyíl
+		- jobbra fordulás: jobbra nyíl
 		- olaj lerakás: vessző gomb
 		- ragacs lerakás: pont gomb
 		- lövés: mínusz-jel gomb

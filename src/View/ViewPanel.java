@@ -165,8 +165,8 @@ public class ViewPanel extends JPanel {
     private void drawBullets(Graphics2D g2d) {
         if (gameMapContainer.getBullets() != null) {
             for (Bullet bullet : gameMapContainer.getBullets()) {
+                g2d.setColor(Color.GREEN);
                 g2d.fillOval((int) bullet.getLocation().getX(), (int) bullet.getLocation().getY(), 5, 5);
-
             }
         }
     }

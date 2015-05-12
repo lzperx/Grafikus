@@ -9,7 +9,7 @@ public class Bullet extends GameElements {
     private double speed;
 
     public Bullet(Point location, double angle, int speed) {
-        super(location, 2);
+        super(location,5);
         this.location=new Point(
                 (int) ((Resources.PlayerRobot1Image.getWidth()/2) * Math.cos(Math.toRadians(angle))) + (int) location.getX(),
                 (int) ((Resources.PlayerRobot1Image.getWidth()/2) * Math.sin(Math.toRadians(angle))) + (int) location.getY());
