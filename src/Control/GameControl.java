@@ -29,7 +29,7 @@ public class GameControl implements KeyListener {
         this.gameMapContainer = gameMapContainer;
 
         gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(900, 600), 10, 225,
-                new KeyMap(KeyEvent.VK_NUMPAD4, KeyEvent.VK_NUMPAD8, KeyEvent.VK_NUMPAD6, KeyEvent.VK_NUMPAD5,
+                new KeyMap(KeyEvent.VK_LEFT, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN,
                         KeyEvent.VK_COMMA, KeyEvent.VK_PERIOD,
                         KeyEvent.VK_MINUS)));
         gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(100, 100), 10, 45,
