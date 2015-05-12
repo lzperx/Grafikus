@@ -2,6 +2,7 @@ import java.io.*;
 
 import Control.NewGame;
 import Model.Resources;
+import Model.Sound;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -11,6 +12,8 @@ public class Main {
 
     public static void main(String args[]) throws IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException {
 
+        Sound mainsounds = new Sound("");
+        mainsounds.collisionSound.play();
 
         while (true) {
 
