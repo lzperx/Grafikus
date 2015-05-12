@@ -29,9 +29,13 @@ public class GameControl implements KeyListener {
         this.gameMapContainer = gameMapContainer;
 
         gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(900, 600), 10, 225,
-                new KeyMap(KeyEvent.VK_LEFT, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN, KeyEvent.VK_N, KeyEvent.VK_M)));
+                new KeyMap(KeyEvent.VK_NUMPAD4, KeyEvent.VK_NUMPAD8, KeyEvent.VK_NUMPAD6, KeyEvent.VK_NUMPAD5,
+                        KeyEvent.VK_COMMA, KeyEvent.VK_PERIOD,
+                        KeyEvent.VK_MINUS)));
         gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(100, 100), 10, 45,
-                new KeyMap(KeyEvent.VK_A, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S, KeyEvent.VK_SHIFT, KeyEvent.VK_CONTROL)));
+                new KeyMap(KeyEvent.VK_A, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S,
+                        KeyEvent.VK_0, KeyEvent.VK_1,
+                        KeyEvent.VK_2)));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(500, 100), 10));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(100, 600), 10));
         gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(800, 400), 10));
@@ -63,6 +67,18 @@ public class GameControl implements KeyListener {
 
         }
 
+        if (gameMapContainer.getBullets() != null) {
+            for (Bullet bullet : gameMapContainer.getBullets()) {
+                bullet.next();
+                if (isOutOfMap(bullet)){
+                    gameMapContainer.removeBullet(bullet);
+                    break;
+                }
+
+            }
+        }
+
+
         //minden kör elején lefuttatjuk a kisrobotokat
         for (CleanerRobot cleanerRobot : gameMapContainer.getCleanerRobots()) {
             //beállítjuk a legközelebbi folt felé
@@ -84,7 +100,10 @@ public class GameControl implements KeyListener {
                 actualRobot.Jump();
                 //ütközést detektálunk
                 Collision(actualRobot);
-                isOutOfMap(actualRobot);
+
+                if (isOutOfMap(actualRobot))
+                    gameMapContainer.removePlayerRobot(actualRobot);
+
                 //ha ütköztek a robotok, akkor kiugrunk a for ciklusból, mert már csak 1 robot van
                 if (gameMapContainer.getPlayerRobots().size() == 1) break;
             }
@@ -94,16 +113,18 @@ public class GameControl implements KeyListener {
 
         //a kör végén lekezeljük külön a csapdákat (szárítás: törlés, ha kiszáradt)
         removeOldTraps();
-pollKey();
+        pollKey();
 
     }
 
-    private void isOutOfMap(PlayerRobot robot) {
-        if (robot.getLocation().getX() > gameMapContainer.getResolution().getWidth() || robot.getLocation().getX() < 0 ||
-                robot.getLocation().getY() > gameMapContainer.getResolution().getHeight() || robot.getLocation().getY() < 0) {
-            gameMapContainer.removePlayerRobot(robot);
-        }
+    private boolean isOutOfMap(PlayerRobot robot) {
+        return robot.getLocation().getX() > gameMapContainer.getResolution().getWidth() || robot.getLocation().getX() < 0 ||
+                robot.getLocation().getY() > gameMapContainer.getResolution().getHeight() || robot.getLocation().getY() < 0;
+    }
 
+    private boolean isOutOfMap(Bullet bullet) {
+        return bullet.getLocation().getX() > gameMapContainer.getResolution().getWidth() || bullet.getLocation().getX() < 0 ||
+                bullet.getLocation().getY() > gameMapContainer.getResolution().getHeight() || bullet.getLocation().getY() < 0;
     }
 
     //A nagyrobot ütközéseit kezeljük itt le
@@ -127,6 +148,12 @@ pollKey();
             }
         }
 
+        //golyókkal való ütközés
+        for (Bullet bullet : gameMapContainer.getBullets()) {
+            if (C3PO.getLocation().distance(bullet.getLocation()) < (C3PO.getHitbox() + bullet.getHitbox())) {
+                bullet.accept(C3PO);
+            }
+        }
 
         //Nagyrobotokkal való ütközés
         for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
@@ -179,6 +206,13 @@ pollKey();
             if (C3PO != R2D2)
                 if (C3PO.getLocation().distance(R2D2.getLocation()) < (C3PO.getHitbox() + R2D2.getHitbox()))
                     R2D2.accept(C3PO);
+        }
+
+        //golyókkal való ütközés
+        for (Bullet bullet : gameMapContainer.getBullets()) {
+            if (C3PO.getLocation().distance(bullet.getLocation()) < (C3PO.getHitbox() + bullet.getHitbox())) {
+                bullet.accept(C3PO);
+            }
         }
 
         //Nagyrobotokkal való ütközés
@@ -278,19 +312,19 @@ pollKey();
         }
     }
 
-public void pollKey(){
-    for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
+    public void pollKey() {
+        for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
 
-        if (R2D2.keys.left)
-            R2D2.TurnLeft(angleChange);
-        if (R2D2.keys.up)
-            R2D2.Speed(speedChange);
-        if (R2D2.keys.right)
-            R2D2.TurnRight(angleChange);
-        if (R2D2.keys.down)
-            R2D2.Speed(-speedChange);
+            if (R2D2.keys.left)
+                R2D2.TurnLeft(angleChange);
+            if (R2D2.keys.up)
+                R2D2.Speed(speedChange);
+            if (R2D2.keys.right)
+                R2D2.TurnRight(angleChange);
+            if (R2D2.keys.down)
+                R2D2.Speed(-speedChange);
+        }
     }
-}
 
     //keylistener-hez tartozó megvalósítandó metódus
     //ha lenyomták az adott gombot, akkor hajtódnak végre az adott változások
@@ -341,6 +375,13 @@ public void pollKey(){
                 if (R2D2.ammountofGlue > 0)
                     gameMapContainer.addTrap(new Glue(R2D2.getLocation()));
                 R2D2.PutGlue();
+            }
+
+            if (e.getKeyCode() == R2D2.keys.getGunKey()) {
+                gameMapContainer.addBullet(new Bullet(R2D2.getLocation(), R2D2.angle, R2D2.speed));
+                Resources.bulletSound.stop();
+                Resources.bulletSound.setFramePosition(0);
+                Resources.bulletSound.start();
             }
         }
     }

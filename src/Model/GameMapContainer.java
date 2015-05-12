@@ -19,6 +19,7 @@ public class GameMapContainer {
     private List<CleanerRobot> cleanerRobots;
     private List<PlayerRobot> playerRobots;
     private List<Trap> traps;
+    private List<Bullet> bullets;
 
 
     //Létrehozzuk a megfelelő tárolókat és játék elemeket
@@ -28,6 +29,7 @@ public class GameMapContainer {
         playerRobots = new ArrayList<PlayerRobot>();
         cleanerRobots = new ArrayList<CleanerRobot>();
         traps = new ArrayList<Trap>();
+        bullets = new ArrayList<Bullet>();
        System.out.println( "Sikeres letrehozas: map[" + resolution.width + "," + resolution.height + "]");
     }
 
@@ -46,6 +48,10 @@ public class GameMapContainer {
 
     public Dimension getResolution() {
         return resolution;
+    }
+
+    public List<Bullet> getBullets() {
+        return bullets;
     }
 
     //nagyrobot hozzáadása
@@ -78,9 +84,14 @@ public class GameMapContainer {
     //trap hozzáadása
     public void addTrap(Trap trap) {
 
-       System.out.println( "Sikeres letrehozas: trap[" + trap.getLocation().getX() + "," + trap.getLocation().getY() + "]");
+       System.out.println("Sikeres letrehozas: trap[" + trap.getLocation().getX() + "," + trap.getLocation().getY() + "]");
         traps.add(trap);
     }
+
+    public void addBullet(Bullet bullet) {
+        bullets.add(bullet);
+    }
+
 
     public void removePlayerRobot(PlayerRobot playerRobot){
 
@@ -98,5 +109,9 @@ public class GameMapContainer {
        System.out.println( "    trap[" + trap.getLocation().getX() + "," + trap.getLocation().getY() + "] megsemmisult!");
         traps.remove(trap);
 
+    }
+    public void removeBullet(Bullet bullet){
+
+        bullets.remove(bullet);
     }
 }

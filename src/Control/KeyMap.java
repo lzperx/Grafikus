@@ -13,6 +13,7 @@ public class KeyMap {
     private int downKey;
     private int oilKey;
     private int glueKey;
+    private  int gunKey;
 
     public boolean left;
     public boolean up;
@@ -20,13 +21,14 @@ public class KeyMap {
     public boolean down;
 
 
-    public KeyMap(int leftKey, int upKey, int rightKey, int downKey, int oilKey, int glueKey) {
+    public KeyMap(int leftKey, int upKey, int rightKey, int downKey, int oilKey, int glueKey, int gunKey) {
         this.leftKey = leftKey;
         this.upKey = upKey;
         this.rightKey = rightKey;
         this.downKey = downKey;
         this.oilKey = oilKey;
         this.glueKey = glueKey;
+        this.gunKey = gunKey;
     }
 
     public int getLeftKey() {
@@ -53,4 +55,7 @@ public class KeyMap {
         return glueKey;
     }
 
+    public int getGunKey() {
+        return gunKey;
+    }
 }

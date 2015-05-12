@@ -3,6 +3,7 @@ package Model;
 import Control.KeyMap;
 
 import java.awt.*;
+import java.util.Random;
 
 public class PlayerRobot extends GameElements {
 
@@ -174,6 +175,19 @@ public class PlayerRobot extends GameElements {
         //Kisrobot elpattan a Nagyrobottól, mert ő mert neki, nem fordítva
        System.out.println( "    KisRobot" + R2D2.name + " es Robot"+name+" utkoztek!");
         R2D2.visit(this);
+    }
+
+    //elpattanáskor ezek a változások fognak történni
+    public void snapping() {
+        Random rand = new Random();
+        int plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+
+        angle = angle - 180 + plusOrMinus * rand.nextInt(50);
+        angle = (angle) % 360;
+        if (angle < 0) angle += 360;
+        speed=40;
+        Jump();
+        speed=3;
     }
 
 }

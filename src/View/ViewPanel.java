@@ -30,10 +30,11 @@ public class ViewPanel extends JPanel {
         drawBackground(g2d);
         drawScores(g2d);
         drawTraps(g2d);
+        drawBullets(g2d);
         drawCleanerRobots(g2d);
         drawPlayerRobots(g2d);
         drawAmountOfTraps(g2d);
-        if(Resources.gameEnd){
+        if (Resources.gameEnd) {
             g2d.drawImage(Resources.WinnerImage,
                     ((int) gameMapContainer.getResolution().getWidth() / 2) - (Resources.WinnerImage.getWidth() / 2),
                     ((int) gameMapContainer.getResolution().getHeight() / 2) - (Resources.WinnerImage.getHeight() / 2),
@@ -41,18 +42,17 @@ public class ViewPanel extends JPanel {
         }
 
 
-
     }
 
-    public boolean retryDialogBox(){
-       int reply = JOptionPane.showConfirmDialog(this, "Would you like to start again?","You should stay!",
-               JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,Resources.LZImage);
+    public boolean retryDialogBox() {
+        int reply = JOptionPane.showConfirmDialog(this, "Would you like to start again?", "You should stay!",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, Resources.LZImage);
         if (reply == JOptionPane.YES_OPTION)
             return true;
         return false;
     }
 
-    private void drawBackground(Graphics2D g2d){
+    private void drawBackground(Graphics2D g2d) {
 
         g2d.drawImage(Resources.BackgroundImage, 0, 0, null);
         if (Resources.gridEnabled) {
@@ -64,56 +64,54 @@ public class ViewPanel extends JPanel {
     }
 
 
-    private void drawAmountOfTraps(Graphics2D g2d){
-        int loc=1;
+    private void drawAmountOfTraps(Graphics2D g2d) {
+        int loc = 1;
         String textOil, textGlue;
         Color color = Color.RED;
         for (PlayerRobot r : gameMapContainer.getPlayerRobots()) { //robotok foltmennyiségének kiírása
             textOil = r.name + "'s amount of oil: " + String.valueOf(r.ammountofOil) + " packs";
             textGlue = r.name + "'s amount of glue: " + String.valueOf(r.ammountofGlue) + " packs";
 
-            drawTextWithShadow(g2d, textOil, 700, loc* 30, color);
-            drawTextWithShadow(g2d, textGlue, 700, loc*30+30, color);
-            loc=3;
-            color= Color.BLUE;
+            drawTextWithShadow(g2d, textOil, 700, loc * 30, color);
+            drawTextWithShadow(g2d, textGlue, 700, loc * 30 + 30, color);
+            loc = 3;
+            color = Color.BLUE;
 
         }
 
     }
 
-    private void drawScores(Graphics2D g2d){
+    private void drawScores(Graphics2D g2d) {
         double distance;
         int loc = 1;
         String text;
         Color c = Color.RED;
         for (PlayerRobot r : gameMapContainer.getPlayerRobots()) { //robotok score-jának kiírása
             distance = r.distance;
-            text = r.name + "'s score: " + String.valueOf((int)distance);
-            if(r.name.toString().contains("2")) {
+            text = r.name + "'s score: " + String.valueOf((int) distance);
+            if (r.name.toString().contains("2")) {
                 c = Color.CYAN;
                 drawTextWithShadow(g2d, text, 20, loc * 30, c);
                 c = Color.RED;
-            }
-            else {
+            } else {
                 drawTextWithShadow(g2d, text, 20, loc * 30, c);
             }
             loc++;
         }
 
         text = "Time left: " + Resources.timeLeft; //játékból hátralévő idő
-        drawTextWithShadow(g2d,text,20, loc*30, c);
+        drawTextWithShadow(g2d, text, 20, loc * 30, c);
         loc++;
 
-        if(Resources.gameEnd) //győztes
+        if (Resources.gameEnd) //győztes
         {
             text = "Winner: " + Resources.winner;
-            drawTextWithShadow(g2d, text, 20, loc*30, c);
+            drawTextWithShadow(g2d, text, 20, loc * 30, c);
             loc++;
         }
     }
 
-    private void drawTextWithShadow(Graphics2D g2d, String text, int x, int y, Color c)
-    {
+    private void drawTextWithShadow(Graphics2D g2d, String text, int x, int y, Color c) {
         Font font = new Font("SansSerif", Font.BOLD, 20);
         g2d.setColor(c);
         g2d.setFont(font);
@@ -125,28 +123,26 @@ public class ViewPanel extends JPanel {
         g2d.drawString(text, x, y);
     }
 
-    private void drawPlayerRobots(Graphics2D g2d){
+    private void drawPlayerRobots(Graphics2D g2d) {
         try {
             for (PlayerRobot r : gameMapContainer.getPlayerRobots()) {
                 g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
                 BufferedImage img;
-                if(r.name.toString().contains("2")) {
+                if (r.name.toString().contains("2")) {
                     img = Resources.PlayerRobot2Image;
-                }
-                else {
+                } else {
                     img = Resources.PlayerRobot1Image;
                 }
                 g2d.drawImage(img, (int) r.getLocation().getX() - (img.getWidth() / 2), (int) r.getLocation().getY() - (img.getHeight() / 2), null);
                 g2d.rotate(-Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
             }
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println(ex.toString());
         }
     }
 
-    private void drawCleanerRobots(Graphics2D g2d){
-        for(CleanerRobot r : gameMapContainer.getCleanerRobots()) {
+    private void drawCleanerRobots(Graphics2D g2d) {
+        for (CleanerRobot r : gameMapContainer.getCleanerRobots()) {
             g2d.rotate(Math.toRadians(r.angle), r.getLocation().getX(), r.getLocation().getY()); //forgat
             g2d.drawImage(Resources.CleanerRobotImage, (int) r.getLocation().getX() - (Resources.CleanerRobotImage.getWidth() / 2), (int) r.getLocation().getY() - (Resources.CleanerRobotImage.getHeight() / 2), null);
             //mivel a rajzlapot forgattuk el, vissza kell csinálni
@@ -155,19 +151,27 @@ public class ViewPanel extends JPanel {
         }
     }
 
-    private void drawTraps(Graphics2D g2d){
-        for(Trap r : gameMapContainer.getTraps()) {
-            if(r.toString().contains("Oil")) {
+    private void drawTraps(Graphics2D g2d) {
+        for (Trap r : gameMapContainer.getTraps()) {
+            if (r.toString().contains("Oil")) {
                 g2d.drawImage(TrapText(Resources.OilImage, String.valueOf(r.getTimeToLive())), (int) r.getLocation().getX() - (Resources.OilImage.getWidth() / 2), (int) r.getLocation().getY() - (Resources.OilImage.getWidth() / 2), null);
                 //System.out.println(r.toString());
-            }
-            else
-            {
-                g2d.drawImage(TrapText(Resources.GlueImage, String.valueOf(r.getTimeToLive())), (int) r.getLocation().getX()- (Resources.GlueImage.getWidth() / 2), (int) r.getLocation().getY()  - (Resources.GlueImage.getWidth() / 2), null);
+            } else {
+                g2d.drawImage(TrapText(Resources.GlueImage, String.valueOf(r.getTimeToLive())), (int) r.getLocation().getX() - (Resources.GlueImage.getWidth() / 2), (int) r.getLocation().getY() - (Resources.GlueImage.getWidth() / 2), null);
             }
         }
     }
-    protected BufferedImage TrapText(BufferedImage image, String text){ //feliratozzuk a csapdákat
+
+    private void drawBullets(Graphics2D g2d) {
+        if (gameMapContainer.getBullets() != null) {
+            for (Bullet bullet : gameMapContainer.getBullets()) {
+                g2d.fillOval((int) bullet.getLocation().getX(), (int) bullet.getLocation().getY(), 5, 5);
+
+            }
+        }
+    }
+
+    protected BufferedImage TrapText(BufferedImage image, String text) { //feliratozzuk a csapdákat
 
         ColorModel cm = image.getColorModel(); //lemásoljuk a képet, hogy ne írjunk rá az eredetire
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
@@ -176,7 +180,7 @@ public class ViewPanel extends JPanel {
 
         Graphics2D gO = copied.createGraphics(); //feliratozzuk a másolt képet
         gO.setColor(Color.red);
-        gO.setFont(new Font( "SansSerif", Font.BOLD, 12 ));
+        gO.setFont(new Font("SansSerif", Font.BOLD, 12));
         gO.drawString(text, 20, 30);
         return copied;
     }

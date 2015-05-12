@@ -79,7 +79,7 @@ public class CleanerRobot extends GameElements {
     }
 
     //elpattanáskor ezek a változások fognak történni
-    private void snapping() {
+    public void snapping() {
         Random rand = new Random();
         int plusOrMinus = Math.random() < 0.5 ? -1 : 1;
 
