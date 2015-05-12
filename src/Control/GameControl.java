@@ -46,7 +46,6 @@ public class GameControl implements KeyListener {
         gameMapContainer.addTrap(new Glue(new Point(600, 250)));
         gameMapContainer.addTrap(new Oil(new Point(1000, 400)));
 
-
     }
 
 
