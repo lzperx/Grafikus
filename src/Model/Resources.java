@@ -66,6 +66,7 @@ public class Resources {
             collisionSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/collision.wav"))));
             crashSound = AudioSystem.getClip();
             crashSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/crash.wav"))));
+             bulletSound = AudioSystem.getClip();
             bulletSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/lasergun.wav"))));
         } else {
             BackgroundImage = ImageIO.read(new File("pic/bg.jpg"));

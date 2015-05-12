@@ -70,7 +70,7 @@ public class GameControl implements KeyListener {
         if (gameMapContainer.getBullets() != null) {
             for (Bullet bullet : gameMapContainer.getBullets()) {
                 bullet.next();
-                if (isOutOfMap(bullet)){
+                if (isOutOfMap(bullet)) {
                     gameMapContainer.removeBullet(bullet);
                     break;
                 }
@@ -204,8 +204,10 @@ public class GameControl implements KeyListener {
         //kisrobotokkal való ütközés lekezelése
         for (CleanerRobot R2D2 : gameMapContainer.getCleanerRobots()) {
             if (C3PO != R2D2)
-                if (C3PO.getLocation().distance(R2D2.getLocation()) < (C3PO.getHitbox() + R2D2.getHitbox()))
+                if (C3PO.getLocation().distance(R2D2.getLocation()) < (C3PO.getHitbox() + R2D2.getHitbox())) {
                     R2D2.accept(C3PO);
+                }
+
         }
 
         //golyókkal való ütközés
@@ -218,6 +220,8 @@ public class GameControl implements KeyListener {
         //Nagyrobotokkal való ütközés
         for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
             if (C3PO.getLocation().distance(R2D2.getLocation()) < (C3PO.getHitbox() + R2D2.getHitbox())) {
+                Resources.collisionSound.stop();
+                Resources.collisionSound.setFramePosition(0);
                 Resources.collisionSound.start();
                 R2D2.accept(C3PO);
             }
