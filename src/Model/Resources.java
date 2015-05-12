@@ -28,12 +28,6 @@ public class Resources {
     public static boolean gameEnd = false;
     public static String winner = "Error";
     public static int maxSpeed = 9;
-    public static Clip winnerSound;
-    public static Clip startSound;
-    public static Clip hogyneSound;
-    public static Clip collisionSound;
-    public static Clip crashSound;
-    public static Clip bulletSound;
 
 
     //hszk gépein úgy fut, ha isHSZK = true;
@@ -56,18 +50,7 @@ public class Resources {
             GlueImage = ImageIO.read(new File("../pic/glue.png"));
             WinnerImage = ImageIO.read(new File("../pic/winner.jpg"));
             LZImage = new ImageIcon("../pic/lz.jpg");
-            winnerSound = AudioSystem.getClip();
-            winnerSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/yourwinner.wav"))));
-            startSound = AudioSystem.getClip();
-            startSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/start.wav"))));
-            hogyneSound = AudioSystem.getClip();
-            hogyneSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/LZ_hogyne.wav"))));
-            collisionSound = AudioSystem.getClip();
-            collisionSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/collision.wav"))));
-            crashSound = AudioSystem.getClip();
-            crashSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/crash.wav"))));
-             bulletSound = AudioSystem.getClip();
-            bulletSound.open(AudioSystem.getAudioInputStream((new File("../Sounds/lasergun.wav"))));
+
         } else {
             BackgroundImage = ImageIO.read(new File("pic/bg.jpg"));
             PlayerRobot1Image = ImageIO.read(new File("pic/testrobot.png"));
@@ -77,18 +60,7 @@ public class Resources {
             GlueImage = ImageIO.read(new File("pic/glue.png"));
             WinnerImage = ImageIO.read(new File("pic/winner.jpg"));
             LZImage = new ImageIcon("pic/lz.jpg");
-            winnerSound = AudioSystem.getClip();
-            winnerSound.open(AudioSystem.getAudioInputStream((new File("Sounds/yourwinner.wav"))));
-            startSound = AudioSystem.getClip();
-            startSound.open(AudioSystem.getAudioInputStream((new File("Sounds/start.wav"))));
-            hogyneSound = AudioSystem.getClip();
-            hogyneSound.open(AudioSystem.getAudioInputStream((new File("Sounds/LZ_hogyne.wav"))));
-            collisionSound = AudioSystem.getClip();
-            collisionSound.open(AudioSystem.getAudioInputStream((new File("Sounds/collision.wav"))));
-            crashSound = AudioSystem.getClip();
-            crashSound.open(AudioSystem.getAudioInputStream((new File("Sounds/crash.wav"))));
-            bulletSound = AudioSystem.getClip();
-            bulletSound.open(AudioSystem.getAudioInputStream((new File("Sounds/lasergun.wav"))));
+
         }
 
     }

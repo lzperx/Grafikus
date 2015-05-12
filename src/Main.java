@@ -13,7 +13,6 @@ public class Main {
     public static void main(String args[]) throws IOException, InterruptedException, LineUnavailableException, UnsupportedAudioFileException {
 
         Sound mainsounds = new Sound("");
-        mainsounds.collisionSound.play();
 
         while (true) {
 
@@ -23,7 +22,7 @@ public class Main {
 
             Resources.gridEnabled = false; //grid megjelenítése
             Resources.timeLeft = 1000; //a játék hossza
-            Resources.startSound.start();
+            Sound.startSound.play();
             NewGame g = new NewGame(1024, 768);
             g.controller.RoundManager();
             while (!Resources.gameEnd) {
@@ -34,24 +33,23 @@ public class Main {
             }
 
             //Megnézi, hogy fut e a játék indulásának hangja, és ha igen akkor vár a lejátszással
-            while (Resources.startSound.isActive()){
+            while (Sound.startSound.isActive()){
                 Thread.sleep(500);
             }
-            while (Resources.crashSound.isActive()){
+            while (Sound.crashSound.isActive()){
                 Thread.sleep(500);
             }
-            Resources.winnerSound.start();
+                Sound.winnerSound.play();
             //megkérdezi, hogy újra kezdjük-e
             Thread.sleep(3000);
             if (!g.viewFrame.viewPanel.retryDialogBox())
                 System.exit(0);
             else {
-                Resources.hogyneSound.start();
+                Sound.hogyneSound.play();
                 Thread.sleep(2500);
                 Resources.gameEnd = false;
                 g.viewFrame.dispose();
             }
-
 
         }
 

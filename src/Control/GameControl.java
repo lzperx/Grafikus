@@ -164,7 +164,7 @@ public class GameControl implements KeyListener {
                     //ezt a törlést nem tehettük meg az accept metódusban, hisz a két robot nem láthatja egymást,
                     //de a Control.GameControl látja őket, itt történik a törlés hívás ténylegesen
                     if (C3PO.speed > R2D2.speed) {
-                        Resources.crashSound.start();
+                        Sound.crashSound.play();
                         gameMapContainer.removePlayerRobot(R2D2);
 
                         //ha tehát R2D2 halt meg, akkor visszatérünk rögtön, mert különben
@@ -172,7 +172,7 @@ public class GameControl implements KeyListener {
                         //így a 2. robot (ami most már így az 1. a listában) nem lesz található
                         break;
                     } else {
-                        Resources.crashSound.start();
+                        Sound.crashSound.play();
                         gameMapContainer.removePlayerRobot(C3PO);
                         break;
                     }
@@ -219,9 +219,7 @@ public class GameControl implements KeyListener {
         //Nagyrobotokkal való ütközés
         for (PlayerRobot R2D2 : gameMapContainer.getPlayerRobots()) {
             if (C3PO.getLocation().distance(R2D2.getLocation()) < (C3PO.getHitbox() + R2D2.getHitbox())) {
-                Resources.collisionSound.stop();
-                Resources.collisionSound.setFramePosition(0);
-                Resources.collisionSound.start();
+                Sound.collisionSound.play();
                 R2D2.accept(C3PO);
             }
 
@@ -382,9 +380,7 @@ public class GameControl implements KeyListener {
 
             if (e.getKeyCode() == R2D2.keys.getGunKey()) {
                 gameMapContainer.addBullet(new Bullet(R2D2.getLocation(), R2D2.angle, R2D2.speed));
-                Resources.bulletSound.stop();
-                Resources.bulletSound.setFramePosition(0);
-                Resources.bulletSound.start();
+                Sound.bulletSound.play();
             }
         }
     }
