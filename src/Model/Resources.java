@@ -27,7 +27,7 @@ public class Resources {
     public static int timeLeft = 0; // a játékból hátralévő idő
     public static boolean gameEnd = false;
     public static String winner = "Error";
-    public static int maxSpeed = 9;
+    public static int maxSpeed = 6969;
 
 
     //hszk gépein úgy fut, ha isHSZK = true;
