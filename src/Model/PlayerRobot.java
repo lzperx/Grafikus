@@ -11,7 +11,7 @@ public class PlayerRobot extends GameElements {
 
 
     protected Point nextPosition;   //A robot ahova ugrani fog legközelebb
-    public int speed;               // A robot aktuális sebessége
+    public double speed;               // A robot aktuális sebessége
     public double angle;         //A robot aktuális szöge, FOKBAN
     public double distance;    //összesen megtett távolság
     public int ammountofOil;        //robot olaj készlete
@@ -75,17 +75,21 @@ public class PlayerRobot extends GameElements {
 
     }
 
-    public void Speed(int change) {
+    public void Speed(double change) {
         if ( change > 0){
         if (speed >= Resources.maxSpeed)
             return;}
-        if (change < 0) {
-            if (speed <= (Resources.maxSpeed * -1)) {
-                return;
+        if (change < 0) { //ha lassít
+            if (speed <= (Resources.maxSpeed * -1)) {  // és túl lassú lenne
+                return; //akkor ne csinálja
             }
         }
         if (state == robotState.NORMAL){
            System.out.println( "Robot" + name + " sebesseg-valtoztatas: " + change);
+            if(speed > 0 && change < 0)
+            {
+                speed += change*2;
+            }
             speed += change;
         }
 
@@ -192,7 +196,7 @@ public class PlayerRobot extends GameElements {
 
     public void gotHit(Bullet projectile){
         double startangle = angle;
-        int startspeed = speed;
+        double startspeed = speed;
         angle = projectile.getAngle();
         speed = 20;
         Jump();
