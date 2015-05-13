@@ -23,7 +23,7 @@ public class Main {
             Resources.gridEnabled = false; //grid megjelenítése
             Resources.timeLeft = 1000; //a játék hossza
             Sound.startSound.play();
-            NewGame g = new NewGame(1366, 768);
+            NewGame g = new NewGame(1024, 768);
             g.controller.RoundManager();
             while (!Resources.gameEnd) {
                 Thread.sleep(30);
