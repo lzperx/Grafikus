@@ -142,6 +142,7 @@ public class GameControl implements KeyListener {
 
                 c.accept(C3PO);
                 gameMapContainer.addTrap(new Oil(c.getLocation()));
+                Sound.splashSound.play();
                 gameMapContainer.removeCleanerRobot(c);
                 break;
             }

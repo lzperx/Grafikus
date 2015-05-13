@@ -2,9 +2,6 @@ package Model;
 import javax.sound.sampled.*;
 import java.io.File;
 
-/**
- * Created by andri_000 on 2015.05.12..
- */
 public class Sound {
 
     private Clip clip;
@@ -15,6 +12,7 @@ public class Sound {
     public static Sound collisionSound = new Sound("collision.wav");
     public static Sound crashSound = new Sound("crash.wav");
     public static Sound bulletSound = new Sound("lasergun.wav");
+    public static Sound splashSound = new Sound("splash.wav");
 
     public Sound(String fileName) {
         if (fileName != "") {

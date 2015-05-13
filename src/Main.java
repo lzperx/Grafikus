@@ -23,7 +23,7 @@ public class Main {
             Resources.gridEnabled = false; //grid megjelenítése
             Resources.timeLeft = 1000; //a játék hossza
             Sound.startSound.play();
-            NewGame g = new NewGame(1024, 768);
+            NewGame g = new NewGame(1300, 768);
             g.controller.RoundManager();
             while (!Resources.gameEnd) {
                 Thread.sleep(30);
@@ -41,12 +41,12 @@ public class Main {
             }
                 Sound.winnerSound.play();
             //megkérdezi, hogy újra kezdjük-e
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             if (!g.viewFrame.viewPanel.retryDialogBox())
                 System.exit(0);
             else {
                 Sound.hogyneSound.play();
-                Thread.sleep(2500);
+                Thread.sleep(500);
                 Resources.gameEnd = false;
                 g.viewFrame.dispose();
             }
