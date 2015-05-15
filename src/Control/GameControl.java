@@ -90,7 +90,6 @@ public class GameControl implements KeyListener {
                 endlessScreen(actualRobot);
 
 
-
                 //ha ütköztek a robotok, akkor kiugrunk a for ciklusból, mert már csak 1 robot van
                 if (gameMapContainer.getPlayerRobots().size() == 1) break;
             }
@@ -111,18 +110,18 @@ public class GameControl implements KeyListener {
     }
 
     //az átadott objektum koordinátái a screen másik felére válzotnak, ha túlmentünk az egyik oldalon
-    private void endlessScreen(GameElements object){
-        if( object.getLocation().getX() > gameMapContainer.getResolution().getWidth()){
+    private void endlessScreen(GameElements object) {
+        if (object.getLocation().getX() > gameMapContainer.getResolution().getWidth()) {
             object.getLocation().setLocation(0, object.getLocation().getY());
         }
-        if(object.getLocation().getX() < 0){
+        if (object.getLocation().getX() < 0) {
             object.getLocation().setLocation(gameMapContainer.getResolution().getWidth(), object.getLocation().getY());
         }
-        if( object.getLocation().getY() > gameMapContainer.getResolution().getHeight()){
-            object.getLocation().setLocation(object.getLocation().getX(),0);
+        if (object.getLocation().getY() > gameMapContainer.getResolution().getHeight()) {
+            object.getLocation().setLocation(object.getLocation().getX(), 0);
         }
-        if(object.getLocation().getY() < 0){
-            object.getLocation().setLocation(object.getLocation().getX(),gameMapContainer.getResolution().getHeight());
+        if (object.getLocation().getY() < 0) {
+            object.getLocation().setLocation(object.getLocation().getX(), gameMapContainer.getResolution().getHeight());
         }
     }
 
@@ -193,16 +192,19 @@ public class GameControl implements KeyListener {
 
         for (Trap trap : gameMapContainer.getTraps()) {
             if (trap.getLocation() == GetMinDistanceTrapLocation(C3PO)) {
-                Trap closest = trap;
-                if (C3PO.getLocation().distance(closest.getLocation()) < (closest.getHitbox())) {
-                    C3PO.location = closest.getLocation();
+                if (C3PO.getLocation().distance(trap.getLocation()) < (trap.getHitbox())) {
+                    C3PO.location = trap.getLocation();
 
                     //ha már nem takarít, akkor kilépünk ebből a for ciklusból,
                     //mert különben Exception-t kapunk, mert a gameMapContainer.getTraps().size() változott
-                    if (!CleaningTrap(C3PO)) break;
+                    if (!CleaningTrap(C3PO, trap)) {
+                        break;
+                    }
+
                 }
             }
         }
+
         //kisrobotokkal való ütközés lekezelése
         for (CleanerRobot R2D2 : gameMapContainer.getCleanerRobots()) {
             if (C3PO != R2D2)
@@ -233,34 +235,22 @@ public class GameControl implements KeyListener {
     }
 
 
-    /*Új cleaning by Jánoky*/
     //Takarít a paraméterben kapott robot
     //megkeresi az a foltot, amin áll és takarít vagy befejezi a takarítást=törli a foltot
-    private boolean CleaningTrap(CleanerRobot cleaner) {
-        Trap cleanupThis = null;
-
-        for (Trap trap : gameMapContainer.getTraps()) {
-            if (trap.getLocation() == GetMinDistanceTrapLocation(cleaner)) {
-                cleanupThis = trap;
-            }
+    private boolean CleaningTrap(CleanerRobot cleaner, Trap trap) {
+        if (cleaner.cleaningcount == cleaner.TimeOfCleaning) {
+            trap.busy = false;
+            gameMapContainer.removeTrap(trap);
+            cleaner.cleaningcount = 0;
+            cleaner.isCleaning = false;
+            return false;
+        } else {
+            trap.busy = true;
+            trap.cleanerRobot=cleaner;
+            cleaner.isCleaning = true;
+            trap.accept(cleaner);
+            return true;
         }
-
-        if (cleanupThis != null) {
-            if (cleaner.cleaningcount == cleaner.TimeOfCleaning) {
-                gameMapContainer.removeTrap(cleanupThis);
-                cleaner.cleaningcount = 0;
-                cleaner.isCleaning = false;
-                return false;
-            } else {
-                cleaner.isCleaning = true;
-                cleanupThis.accept(cleaner);
-                return true;
-            }
-        }
-
-        //elméletileg sosem jut idáig, mert a cleanupThis mindig valid lesz,
-        //hisz azért vagyunk ebben a metódusban, mert tudjuk, hogy állunk valamin
-        return false;
     }
 
     //visszatér az átadott robot új szögével fokban
@@ -293,15 +283,18 @@ public class GameControl implements KeyListener {
 
     }
 
-    //visszaadja a legközelebbi folt koordinátáit
+    //visszaadja a legközelebbi SZABAD folt koordinátáit
     private Point GetMinDistanceTrapLocation(CleanerRobot robot) {
         double minValue = 10000;
         int minTrapIndex = -1;
         for (Trap trap : gameMapContainer.getTraps()) {
-            if (robot.getLocation().distance(trap.getLocation()) < minValue) {
-                minValue = robot.getLocation().distance(trap.getLocation());
-                minTrapIndex = gameMapContainer.getTraps().indexOf(trap);
-            }
+
+            //ha a folt nem foglalat, vagy én vagyok aki takarítja, akkor igaz
+            if (!trap.busy || trap.cleanerRobot==robot)
+                if ((robot.getLocation().distance(trap.getLocation()) < minValue)) {
+                    minValue = robot.getLocation().distance(trap.getLocation());
+                    minTrapIndex = gameMapContainer.getTraps().indexOf(trap);
+                }
         }
         return minTrapIndex == (-1) ? new Point(-1, -1) : gameMapContainer.getTraps().get(minTrapIndex).getLocation();
     }
@@ -312,6 +305,12 @@ public class GameControl implements KeyListener {
         for (Trap csapda : gameMapContainer.getTraps()) {
             csapda.dry();
             if (csapda.getTimeToLive() <= 0) {
+
+                if(csapda.cleanerRobot!=null){
+                    csapda.cleanerRobot.cleaningcount=0;
+                    csapda.cleanerRobot.isCleaning = false;
+                }
+
                 gameMapContainer.removeTrap(csapda);
                 break;
             }
