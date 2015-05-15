@@ -61,8 +61,9 @@ public class GameControl implements KeyListener {
 
         //minden kör elején lefuttatjuk a kisrobotokat
         for (CleanerRobot cleanerRobot : gameMapContainer.getCleanerRobots()) {
-            //beállítjuk a legközelebbi folt felé
-            cleanerRobot.angle = setAngleofCleanerRobot(cleanerRobot);
+            //beállítjuk a legközelebbi folt felé, ha éppen nem takarít
+            if(!cleanerRobot.isCleaning)
+                cleanerRobot.angle = setAngleofCleanerRobot(cleanerRobot);
             //mozgatjuk a robotot, ha épp takarít, akkor a takarítási idő csökken
             cleanerRobot.Jump();
             endlessScreen(cleanerRobot);
@@ -189,21 +190,18 @@ public class GameControl implements KeyListener {
     private void Collision(CleanerRobot C3PO) {
 
         //Csapdákkal való ütközés lekezelése
+            for (Trap trap : gameMapContainer.getTraps()) {
+                    if (C3PO.getLocation().distance(trap.getLocation()) < (trap.getHitbox())) {
+                        C3PO.location = trap.getLocation();
 
-        for (Trap trap : gameMapContainer.getTraps()) {
-            if (trap.getLocation() == GetMinDistanceTrapLocation(C3PO)) {
-                if (C3PO.getLocation().distance(trap.getLocation()) < (trap.getHitbox())) {
-                    C3PO.location = trap.getLocation();
+                        //ha már nem takarít, akkor kilépünk ebből a for ciklusból,
+                        //mert különben Exception-t kapunk, mert a gameMapContainer.getTraps().size() változott
+                        if (!CleaningTrap(C3PO, trap)) {
+                            break;
+                        }
 
-                    //ha már nem takarít, akkor kilépünk ebből a for ciklusból,
-                    //mert különben Exception-t kapunk, mert a gameMapContainer.getTraps().size() változott
-                    if (!CleaningTrap(C3PO, trap)) {
-                        break;
                     }
-
-                }
             }
-        }
 
         //kisrobotokkal való ütközés lekezelése
         for (CleanerRobot R2D2 : gameMapContainer.getCleanerRobots()) {
@@ -246,7 +244,6 @@ public class GameControl implements KeyListener {
             return false;
         } else {
             trap.busy = true;
-            trap.cleanerRobot=cleaner;
             cleaner.isCleaning = true;
             trap.accept(cleaner);
             return true;
@@ -289,8 +286,8 @@ public class GameControl implements KeyListener {
         int minTrapIndex = -1;
         for (Trap trap : gameMapContainer.getTraps()) {
 
-            //ha a folt nem foglalat, vagy én vagyok aki takarítja, akkor igaz
-            if (!trap.busy || trap.cleanerRobot==robot)
+            //ha a folt nem foglalat, akkor nézem
+            if (!trap.busy)
                 if ((robot.getLocation().distance(trap.getLocation()) < minValue)) {
                     minValue = robot.getLocation().distance(trap.getLocation());
                     minTrapIndex = gameMapContainer.getTraps().indexOf(trap);
@@ -304,13 +301,7 @@ public class GameControl implements KeyListener {
     public void removeOldTraps() {
         for (Trap csapda : gameMapContainer.getTraps()) {
             csapda.dry();
-            if (csapda.getTimeToLive() <= 0) {
-
-                if(csapda.cleanerRobot!=null){
-                    csapda.cleanerRobot.cleaningcount=0;
-                    csapda.cleanerRobot.isCleaning = false;
-                }
-
+            if (csapda.getTimeToLive() <= 0 && !csapda.busy) {
                 gameMapContainer.removeTrap(csapda);
                 break;
             }

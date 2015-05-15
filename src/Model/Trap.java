@@ -6,7 +6,6 @@ import java.awt.*;
 public abstract class Trap extends GameElements{
 
     public boolean busy;
-    public CleanerRobot cleanerRobot;
 
     public Trap(Point location) {
         super(location, 10);
