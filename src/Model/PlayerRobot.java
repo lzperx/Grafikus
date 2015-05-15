@@ -44,14 +44,6 @@ public class PlayerRobot extends GameElements {
         nextPosition = new Point(
                 (int) (speed * Math.cos(Math.toRadians(angle))) + (int) location.getX(),
                 (int) (speed * Math.sin(Math.toRadians(angle))) + (int) location.getY());
-        /*if(location.equals(nextPosition) && speed != 0) //tehát ha be van ragadva egy csapdára
-        {
-            System.out.println("BERAGADT!");
-            speed = 2; //akkor meglökjük
-            nextPosition = new Point( //és újraszámoljuk a helyét
-                    (int) (speed * Math.cos(Math.toRadians(angle))) + (int) location.getX(),
-                    (int) (speed * Math.sin(Math.toRadians(angle))) + (int) location.getY());
-        }*/
 
         distance += nextPosition.distance(location);
         location = nextPosition;
