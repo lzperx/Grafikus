@@ -236,7 +236,7 @@ public class GameControl implements KeyListener {
     //Takarít a paraméterben kapott robot
     //megkeresi az a foltot, amin áll és takarít vagy befejezi a takarítást=törli a foltot
     private boolean CleaningTrap(CleanerRobot cleaner, Trap trap) {
-        if (cleaner.cleaningcount == cleaner.TimeOfCleaning) {
+        if (cleaner.cleaningcount == cleaner.TimeOfCleaning || trap.getTimeToLive()==0) {
             trap.busy = false;
             gameMapContainer.removeTrap(trap);
             cleaner.cleaningcount = 0;
