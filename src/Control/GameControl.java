@@ -152,6 +152,8 @@ public class GameControl implements KeyListener {
         for (Bullet bullet : gameMapContainer.getBullets()) {
             if (C3PO.getLocation().distance(bullet.getLocation()) < (C3PO.getHitbox() + bullet.getHitbox())) {
                 bullet.accept(C3PO);
+                gameMapContainer.removeBullet(bullet);
+                break;
             }
         }
 
@@ -214,6 +216,8 @@ public class GameControl implements KeyListener {
         for (Bullet bullet : gameMapContainer.getBullets()) {
             if (C3PO.getLocation().distance(bullet.getLocation()) < (C3PO.getHitbox() + bullet.getHitbox())) {
                 bullet.accept(C3PO);
+                gameMapContainer.removeBullet(bullet);
+                break;
             }
         }
 

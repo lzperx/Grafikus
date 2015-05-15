@@ -198,7 +198,7 @@ public class PlayerRobot extends GameElements {
         double startangle = angle;
         double startspeed = speed;
         angle = projectile.getAngle();
-        speed = 20;
+        speed = 30;
         Jump();
         speed = startspeed;
         angle = startangle;

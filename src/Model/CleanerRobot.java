@@ -7,7 +7,7 @@ public class CleanerRobot extends GameElements {
     public int name; //CSAK INEIGLENESEN a protoban
 
     protected Point nextPosition;   //A robot ahova ugrani fog legközelebb
-    public int speed = 3;               // A robot aktuális sebessége
+    public double speed = 3;               // A robot aktuális sebessége
     public double angle = 0;         //A robot aktuális szöge fokban
 
     public boolean isCleaning = false; //igaz, ha éppen takarít
@@ -93,9 +93,9 @@ public class CleanerRobot extends GameElements {
 
     public void gotHit(Bullet projectile){
         double startangle = angle;
-        int startspeed = speed;
+        double startspeed = speed;
         angle = projectile.getAngle();
-        speed = 20;
+        speed = 30;
         Jump();
         speed = startspeed;
         angle = startangle;
