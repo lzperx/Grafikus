@@ -104,24 +104,25 @@ public class GameControl implements KeyListener {
 
     }
 
+    //ha az okjektum lemegy a pályáról, akkor true-val tér vissza
     private boolean isOutOfMap(GameElements object) {
         return object.getLocation().getX() > gameMapContainer.getResolution().getWidth() || object.getLocation().getX() < 0 ||
                 object.getLocation().getY() > gameMapContainer.getResolution().getHeight() || object.getLocation().getY() < 0;
     }
 
-
-    private void endlessScreen(GameElements actualRobot){
-        if( actualRobot.getLocation().getX() > gameMapContainer.getResolution().getWidth()){
-            actualRobot.getLocation().setLocation(0, actualRobot.getLocation().getY());
+    //az átadott objektum koordinátái a screen másik felére válzotnak, ha túlmentünk az egyik oldalon
+    private void endlessScreen(GameElements object){
+        if( object.getLocation().getX() > gameMapContainer.getResolution().getWidth()){
+            object.getLocation().setLocation(0, object.getLocation().getY());
         }
-        if(actualRobot.getLocation().getX() < 0){
-            actualRobot.getLocation().setLocation(gameMapContainer.getResolution().getWidth(), actualRobot.getLocation().getY());
+        if(object.getLocation().getX() < 0){
+            object.getLocation().setLocation(gameMapContainer.getResolution().getWidth(), object.getLocation().getY());
         }
-        if( actualRobot.getLocation().getY() > gameMapContainer.getResolution().getHeight()){
-            actualRobot.getLocation().setLocation(actualRobot.getLocation().getX(),0);
+        if( object.getLocation().getY() > gameMapContainer.getResolution().getHeight()){
+            object.getLocation().setLocation(object.getLocation().getX(),0);
         }
-        if(actualRobot.getLocation().getY() < 0){
-            actualRobot.getLocation().setLocation(actualRobot.getLocation().getX(),gameMapContainer.getResolution().getHeight());
+        if(object.getLocation().getY() < 0){
+            object.getLocation().setLocation(object.getLocation().getX(),gameMapContainer.getResolution().getHeight());
         }
     }
 
