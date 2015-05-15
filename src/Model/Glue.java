@@ -10,6 +10,7 @@ public class Glue extends Trap {
     private int timeToLive = 4;
     public Glue(Point location) {
         super(location);
+        busy=false;
     }
 
     @Override

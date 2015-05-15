@@ -11,6 +11,7 @@ public class Oil extends Trap {
 
     public Oil(Point location) {
         super(location);
+        busy=false;
     }
 
 
