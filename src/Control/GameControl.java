@@ -24,27 +24,8 @@ public class GameControl implements KeyListener {
     public static final double speedChange = 0.3;
     public static final int angleChange = 10;
 
-    //A konstruktorban inicializálunk mindent, létrehozzuk a robotokat, a kezdő elemeket
     public GameControl(GameMapContainer gameMapContainer) {
         this.gameMapContainer = gameMapContainer;
-
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(900, 600), 10, 225,
-                new KeyMap(KeyEvent.VK_LEFT, KeyEvent.VK_UP, KeyEvent.VK_RIGHT, KeyEvent.VK_DOWN,
-                        KeyEvent.VK_COMMA, KeyEvent.VK_PERIOD,
-                        KeyEvent.VK_MINUS)));
-        gameMapContainer.addPlayerRobot(new PlayerRobot(new Point(100, 100), 10, 45,
-                new KeyMap(KeyEvent.VK_A, KeyEvent.VK_W, KeyEvent.VK_D, KeyEvent.VK_S,
-                        KeyEvent.VK_0, KeyEvent.VK_1,
-                        KeyEvent.VK_2)));
-        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(500, 100), 10));
-        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(100, 600), 10));
-        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(800, 400), 10));
-        gameMapContainer.addCleanerRobot(new CleanerRobot(new Point(700, 600), 10));
-        gameMapContainer.addTrap(new Glue(new Point(200, 200)));
-        gameMapContainer.addTrap(new Oil(new Point(400, 400)));
-        gameMapContainer.addTrap(new Glue(new Point(600, 200)));
-        gameMapContainer.addTrap(new Glue(new Point(600, 250)));
-        gameMapContainer.addTrap(new Oil(new Point(1000, 400)));
 
     }
 
@@ -55,6 +36,7 @@ public class GameControl implements KeyListener {
             Resources.winner = gameMapContainer.getPlayerRobots().get(0).name;
             Resources.gameEnd = true;
         }
+
         if (Resources.timeLeft == 1) {
             Resources.gameEnd = true;
             PlayerRobot winner = gameMapContainer.getPlayerRobots().get(0);
@@ -84,6 +66,7 @@ public class GameControl implements KeyListener {
             cleanerRobot.angle = setAngleofCleanerRobot(cleanerRobot);
             //mozgatjuk a robotot, ha épp takarít, akkor a takarítási idő csökken
             cleanerRobot.Jump();
+            endlessScreen(cleanerRobot);
             //üztökést detektálunk: frissülnek az adatok
             Collision(cleanerRobot);
 
@@ -100,8 +83,14 @@ public class GameControl implements KeyListener {
                 //ütközést detektálunk
                 Collision(actualRobot);
 
+                /*
                 if (isOutOfMap(actualRobot))
                     gameMapContainer.removePlayerRobot(actualRobot);
+                    */
+                //törlés helyett, a másik oldalon jön ki a robot
+                endlessScreen(actualRobot);
+
+
 
                 //ha ütköztek a robotok, akkor kiugrunk a for ciklusból, mert már csak 1 robot van
                 if (gameMapContainer.getPlayerRobots().size() == 1) break;
@@ -116,14 +105,25 @@ public class GameControl implements KeyListener {
 
     }
 
-    private boolean isOutOfMap(PlayerRobot robot) {
-        return robot.getLocation().getX() > gameMapContainer.getResolution().getWidth() || robot.getLocation().getX() < 0 ||
-                robot.getLocation().getY() > gameMapContainer.getResolution().getHeight() || robot.getLocation().getY() < 0;
+    private boolean isOutOfMap(GameElements object) {
+        return object.getLocation().getX() > gameMapContainer.getResolution().getWidth() || object.getLocation().getX() < 0 ||
+                object.getLocation().getY() > gameMapContainer.getResolution().getHeight() || object.getLocation().getY() < 0;
     }
 
-    private boolean isOutOfMap(Bullet bullet) {
-        return bullet.getLocation().getX() > gameMapContainer.getResolution().getWidth() || bullet.getLocation().getX() < 0 ||
-                bullet.getLocation().getY() > gameMapContainer.getResolution().getHeight() || bullet.getLocation().getY() < 0;
+
+    private void endlessScreen(GameElements actualRobot){
+        if( actualRobot.getLocation().getX() > gameMapContainer.getResolution().getWidth()){
+            actualRobot.getLocation().setLocation(0, actualRobot.getLocation().getY());
+        }
+        if(actualRobot.getLocation().getX() < 0){
+            actualRobot.getLocation().setLocation(gameMapContainer.getResolution().getWidth(), actualRobot.getLocation().getY());
+        }
+        if( actualRobot.getLocation().getY() > gameMapContainer.getResolution().getHeight()){
+            actualRobot.getLocation().setLocation(actualRobot.getLocation().getX(),0);
+        }
+        if(actualRobot.getLocation().getY() < 0){
+            actualRobot.getLocation().setLocation(actualRobot.getLocation().getX(),gameMapContainer.getResolution().getHeight());
+        }
     }
 
     //A nagyrobot ütközéseit kezeljük itt le
