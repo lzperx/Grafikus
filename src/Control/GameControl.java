@@ -20,7 +20,6 @@ public class GameControl implements KeyListener {
 
     //Ezek a mi globális mértékegységeink a gyorsításnál, fordulásnál
     //minden gomblenyomásnál ennyit fog változni a sebesség/elfordulás
-    //todo változtatható
     public static final double speedChange = 0.3;
     public static final int angleChange = 10;
 

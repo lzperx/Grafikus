@@ -7,7 +7,7 @@ import java.awt.*;
 public class Oil extends Trap {
 
     // az olaj 4 kör/ugrás után felszárad, ugrásonként csökkentjük.
-    private int timeToLive = 400; //TODO visszacsökkenteni
+    private int timeToLive = 200;
 
     public Oil(Point location) {
         super(location);
