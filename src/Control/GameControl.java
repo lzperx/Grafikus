@@ -62,14 +62,16 @@ public class GameControl implements KeyListener {
         //minden kör elején lefuttatjuk a kisrobotokat
         for (CleanerRobot cleanerRobot : gameMapContainer.getCleanerRobots()) {
             //beállítjuk a legközelebbi folt felé, ha éppen nem takarít
-            if(!cleanerRobot.isCleaning)
+            if (!cleanerRobot.isCleaning)
                 cleanerRobot.angle = setAngleofCleanerRobot(cleanerRobot);
             //mozgatjuk a robotot, ha épp takarít, akkor a takarítási idő csökken
             cleanerRobot.Jump();
             endlessScreen(cleanerRobot);
-            //üztökést detektálunk: frissülnek az adatok
-            Collision(cleanerRobot);
 
+            //üztökést detektálunk: frissülnek az adatok
+            //ha megsemmisült valamelyik, akkor kilépünk a ciklusból, mert hibát fog dobni
+            if (Collision(cleanerRobot))
+                break;
         }
 
         //lekezeljük a pálya robotjait sorban
@@ -80,8 +82,11 @@ public class GameControl implements KeyListener {
                 //és ott változtatjuk a játékos robotok értékeit.
                 //a gombok segítségével beállított változásokat futtatjuk az aktuális robotra: Jump()
                 actualRobot.Jump();
-                //ütközést detektálunk
-                Collision(actualRobot);
+
+                //ütközést detektálunk,
+                //ha megsemmisült valamelyik, akkor kilépünk a ciklusból, mert hibát fog dobni
+                if (Collision(actualRobot))
+                    break;
 
                 /*
                 if (isOutOfMap(actualRobot))
@@ -90,9 +95,6 @@ public class GameControl implements KeyListener {
                 //törlés helyett, a másik oldalon jön ki a robot
                 endlessScreen(actualRobot);
 
-
-                //ha ütköztek a robotok, akkor kiugrunk a for ciklusból, mert már csak 1 robot van
-                if (gameMapContainer.getPlayerRobots().size() == 1) break;
             }
         } catch (Exception ex) {
             Resources.gameEnd = true;
@@ -127,7 +129,7 @@ public class GameControl implements KeyListener {
     }
 
     //A nagyrobot ütközéseit kezeljük itt le
-    private void Collision(PlayerRobot C3PO) {
+    private boolean Collision(PlayerRobot C3PO) {
 
         //Csapdákkal való ütközés lekezelése
         for (Trap itsATrap : gameMapContainer.getTraps()) {
@@ -173,35 +175,35 @@ public class GameControl implements KeyListener {
                         //ha tehát R2D2 halt meg, akkor visszatérünk rögtön, mert különben
                         //exception-t dob, hisz a for ciklusunk 2-ig számolt, de mi töröltük az 1.-t az 1. körben,
                         //így a 2. robot (ami most már így az 1. a listában) nem lesz található
-                        break;
+
                     } else {
                         Sound.crashSound.play();
                         gameMapContainer.removePlayerRobot(C3PO);
-                        break;
-                    }
 
+                    }
+                    return true;
                 }
             }
         }
-
+        return false;
     }
 
     //A kisrobot ütközéseit kezeljük itt le
-    private void Collision(CleanerRobot C3PO) {
+    private boolean Collision(CleanerRobot C3PO) {
 
         //Csapdákkal való ütközés lekezelése
-            for (Trap trap : gameMapContainer.getTraps()) {
-                    if (C3PO.getLocation().distance(trap.getLocation()) < (trap.getHitbox())) {
-                        C3PO.location = trap.getLocation();
+        for (Trap trap : gameMapContainer.getTraps()) {
+            if (C3PO.getLocation().distance(trap.getLocation()) < (trap.getHitbox())) {
+                C3PO.location = trap.getLocation();
 
-                        //ha már nem takarít, akkor kilépünk ebből a for ciklusból,
-                        //mert különben Exception-t kapunk, mert a gameMapContainer.getTraps().size() változott
-                        if (!CleaningTrap(C3PO, trap)) {
-                            break;
-                        }
+                //ha már nem takarít, akkor kilépünk ebből a for ciklusból,
+                //mert különben Exception-t kapunk, mert a gameMapContainer.getTraps().size() változott
+                if (!CleaningTrap(C3PO, trap)) {
+                    break;
+                }
 
-                    }
             }
+        }
 
         //kisrobotokkal való ütközés lekezelése
         for (CleanerRobot R2D2 : gameMapContainer.getCleanerRobots()) {
@@ -217,7 +219,8 @@ public class GameControl implements KeyListener {
             if (C3PO.getLocation().distance(bullet.getLocation()) < (C3PO.getHitbox() + bullet.getHitbox())) {
                 bullet.accept(C3PO);
                 gameMapContainer.removeBullet(bullet);
-                break;
+                gameMapContainer.removeCleanerRobot(C3PO);
+                return true;
             }
         }
 
@@ -229,14 +232,14 @@ public class GameControl implements KeyListener {
             }
 
         }
-
+        return false;
     }
 
 
     //Takarít a paraméterben kapott robot
     //megkeresi az a foltot, amin áll és takarít vagy befejezi a takarítást=törli a foltot
     private boolean CleaningTrap(CleanerRobot cleaner, Trap trap) {
-        if (cleaner.cleaningcount == cleaner.TimeOfCleaning || trap.getTimeToLive()==0) {
+        if (cleaner.cleaningcount == cleaner.TimeOfCleaning || trap.getTimeToLive() == 0) {
             trap.busy = false;
             gameMapContainer.removeTrap(trap);
             cleaner.cleaningcount = 0;
